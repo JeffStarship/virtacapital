@@ -55,11 +55,10 @@ function Index() {
 
       {/* STATS */}
       <section className="px-6 lg:px-10 py-20" style={{ borderTop: "0.5px solid var(--border-gold)", borderBottom: "0.5px solid var(--border-gold)" }}>
-        <div className="mx-auto max-w-6xl grid grid-cols-3">
+        <div className="mx-auto max-w-6xl grid grid-cols-2">
           {[
-            { n: "40+", l: "Anos Canopus" },
+            { n: "55+", l: "Anos Canopus" },
             { n: "100%", l: "Regulamentado BC" },
-            { n: "R$ 0", l: "Para consultar" },
           ].map((s, i) => (
             <div
               key={s.l}
@@ -91,7 +90,7 @@ function Index() {
             {[
               { n: "01", t: "Alavancagem empresarial", d: "Capital em caixa para sua empresa expandir, sem vender o imóvel." },
               { n: "02", t: "Aquisição com renda passiva", d: "Adquira ativos estratégicos e gere fluxo recorrente." },
-              { n: "03", t: "Rendimento no CDI", d: "Sua carta rendendo enquanto define o próximo movimento." },
+              { n: "03", t: "Rendimento do CDI", d: "Rentabilidade em cima de capital de terceiros enquanto você define o próximo movimento." },
             ].map((c, i) => (
               <div
                 key={c.n}

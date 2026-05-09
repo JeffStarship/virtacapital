@@ -66,8 +66,7 @@ function Page() {
           <div className="gold-line mb-8 mx-auto" />
           <h2 className="font-display text-3xl md:text-5xl font-light">Você se identifica?</h2>
           <p className="mt-8 text-[13px] text-foreground/50 max-w-xl mx-auto leading-relaxed">
-            Se algum desses perfis se aproxima do seu momento, vale uma conversa. A primeira
-            análise não tem custo.
+            Se algum desses perfis se aproxima do seu momento, vale uma conversa.
           </p>
           <Link
             to="/contato"

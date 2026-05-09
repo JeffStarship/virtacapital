@@ -55,9 +55,7 @@ function Page() {
           </h2>
           <img src={canopusLogo} alt="Consórcio Canopus" className="h-14 w-auto mx-auto mt-12 opacity-90" />
           <p className="mt-10 text-[14px] text-foreground/55 max-w-2xl mx-auto leading-relaxed">
-            O Consórcio Canopus é regulamentado pelo Banco Central do Brasil, com presença
-            nacional em 7 estados. Toda operação Virta Capital passa por essa estrutura — segurança
-            jurídica e regulatória do início ao fim.
+            O Consórcio Canopus é regulamentado pelo Banco Central do Brasil, com presença em todo o território nacional. Toda operação Virta Capital passa por essa estrutura — segurança jurídica e regulatória do início ao fim.
           </p>
         </div>
       </section>

@@ -16,18 +16,17 @@ export const Route = createFileRoute("/como-funciona")({
 });
 
 const steps = [
-  { n: "01", t: "Você tem uma carta de crédito contemplada ou um imóvel", d: "O ponto de partida é um ativo já existente — patrimônio que pode trabalhar a seu favor." },
+  { n: "01", t: "Você tem uma carta de crédito ou um imóvel", d: "O ponto de partida é um ativo já existente — patrimônio que pode trabalhar a seu favor." },
   { n: "02", t: "A Virta Capital analisa sua situação e identifica a melhor estratégia", d: "Cada caso é único. Estudamos perfil, objetivos e horizonte para indicar o caminho ideal." },
-  { n: "03", t: "Estruturamos a operação junto ao Consórcio Canopus", d: "Conduzimos toda a operação em parceria com administradora regulamentada pelo BC.", canopus: true },
+  { n: "03", t: "Estruturamos a operação junto à Canopus", d: "Conduzimos toda a operação em parceria com administradora regulamentada pelo BC.", canopus: true },
   { n: "04", t: "Capital disponível — você decide como alocar", d: "Recursos liberados para o destino que a estratégia indicou: empresa, novo ativo ou rendimento." },
 ];
 
 const faq = [
   { q: "O que é uma carta contemplada?", a: "É a comprovação de que um cotista de consórcio tem direito ao crédito previsto. Esse crédito pode ser direcionado a múltiplas estratégias patrimoniais." },
   { q: "Preciso vender meu imóvel?", a: "Não. A estratégia foi desenhada justamente para preservar o ativo enquanto libera capital." },
-  { q: "Quanto tempo leva?", a: "Depende do perfil e da estrutura, mas a maioria das operações é concluída em poucas semanas." },
-  { q: "Quem pode usar essa estratégia?", a: "Investidores, empresários e profissionais liberais com patrimônio ou carta contemplada disponível." },
-  { q: "É regulamentado?", a: "Sim. Toda a operação acontece via Consórcio Canopus, administradora regulamentada pelo Banco Central do Brasil." },
+  { q: "Quem pode usar essa estratégia?", a: "Investidores, empresários e profissionais liberais com patrimônio que desejam mais rentabilidade com segurança." },
+  { q: "É regulamentado?", a: "Sim. Toda a operação acontece via Canopus, administradora regulamentada pelo Banco Central do Brasil." },
 ];
 
 function Page() {
