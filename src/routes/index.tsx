@@ -91,7 +91,7 @@ function Index() {
             {[
               { n: "01", t: "Alavancagem empresarial", d: "Capital em caixa para sua empresa expandir, sem vender o imóvel." },
               { n: "02", t: "Aquisição com renda passiva", d: "Adquira ativos estratégicos e gere fluxo recorrente." },
-              { n: "03", t: "Rendimento no CDI", d: "Sua carta rendendo enquanto define o próximo movimento." },
+              { n: "03", t: "Rendimento do CDI", d: "Rentabilidade em cima de capital de terceiros enquanto você define o próximo movimento." },
             ].map((c, i) => (
               <div
                 key={c.n}
