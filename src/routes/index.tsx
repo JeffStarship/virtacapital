@@ -55,11 +55,10 @@ function Index() {
 
       {/* STATS */}
       <section className="px-6 lg:px-10 py-20" style={{ borderTop: "0.5px solid var(--border-gold)", borderBottom: "0.5px solid var(--border-gold)" }}>
-        <div className="mx-auto max-w-6xl grid grid-cols-3">
+        <div className="mx-auto max-w-6xl grid grid-cols-2">
           {[
-            { n: "40+", l: "Anos Canopus" },
+            { n: "55+", l: "Anos Canopus" },
             { n: "100%", l: "Regulamentado BC" },
-            { n: "R$ 0", l: "Para consultar" },
           ].map((s, i) => (
             <div
               key={s.l}
