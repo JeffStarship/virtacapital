@@ -86,6 +86,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Virta Capital — Alavancagem Patrimonial" },
+      { name: "description", content: "Virta Capital offers a comprehensive institutional website for patrimonial leverage strategies using contemplated credit letters." },
+      { property: "og:description", content: "Virta Capital offers a comprehensive institutional website for patrimonial leverage strategies using contemplated credit letters." },
+      { name: "twitter:description", content: "Virta Capital offers a comprehensive institutional website for patrimonial leverage strategies using contemplated credit letters." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/cfbdef60-298f-41d9-8e19-9c0fe383aa05/id-preview-36abcd03--58241502-2ea1-451b-a673-b38ba1c57066.lovable.app-1778354044242.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/cfbdef60-298f-41d9-8e19-9c0fe383aa05/id-preview-36abcd03--58241502-2ea1-451b-a673-b38ba1c57066.lovable.app-1778354044242.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
