@@ -8,7 +8,7 @@ const links = [
   { to: "/estrategias", label: "Estratégias" },
   { to: "/para-quem-e", label: "Para Quem É" },
   { to: "/sobre", label: "Sobre" },
-  { to: "/blog", label: "Blog" },
+  { to: "/blog", label: "Matérias" },
   { to: "/contato", label: "Contato" },
 ] as const;
 
@@ -19,9 +19,9 @@ export function Nav() {
       className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur"
       style={{ borderBottom: "0.5px solid rgba(180,150,90,0.15)" }}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-24 flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Virta Capital" className="h-12 md:h-14 w-auto" />
+          <img src={logo} alt="Virta Capital" className="h-16 md:h-20 w-auto" />
         </Link>
         <nav className="hidden lg:flex items-center gap-9">
           {links.map((l) => (

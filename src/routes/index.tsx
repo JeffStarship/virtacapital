@@ -89,7 +89,7 @@ function Index() {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3" style={{ borderTop: "0.5px solid var(--border-gold)" }}>
             {[
               { n: "01", t: "Alavancagem empresarial", d: "Capital em caixa para sua empresa expandir, sem vender o imóvel." },
-              { n: "02", t: "Aquisição com renda passiva", d: "Adquira ativos estratégicos e gere fluxo recorrente." },
+              { n: "02", t: "Aquisição com renda passiva", d: "Utilize a carta contemplada para adquirir um imóvel estratégico e gere fluxo de renda recorrente com capital que estava parado — sem comprometer sua liquidez." },
               { n: "03", t: "Rendimento do CDI", d: "Rentabilidade em cima de capital de terceiros enquanto você define o próximo movimento." },
             ].map((c, i) => (
               <div

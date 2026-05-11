@@ -27,7 +27,7 @@ const items = [
   },
   {
     n: "03",
-    t: "Rendimento atrelado ao CDI",
+    t: "Rendimento do CDI",
     d: "Para perfis conservadores: o rendimento do CDI em cima de capital de terceiros, através da carta de crédito, enquanto você analisa o próximo movimento patrimonial.",
     assunto: "rendimento-cdi",
   },

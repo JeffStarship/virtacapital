@@ -30,7 +30,7 @@ const faq = [
 ];
 
 function Page() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   return (
     <Layout>
       <PageHero
