@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout, PageHero } from "@/components/Layout";
 import everton from "@/assets/everton.webp";
 import canopusLogo from "@/assets/canopus-logo.png";
@@ -31,11 +31,16 @@ function Page() {
             style={{ filter: "grayscale(1) contrast(1.08)" }}
           />
           <div>
-            <p className="eyebrow mb-4">Alavancagem Patrimonial</p>
+            <p
+              className="mb-6 text-[11px] tracking-[0.35em] uppercase"
+              style={{ color: "var(--gold)" }}
+            >
+              Alavancagem Patrimonial
+            </p>
             <h2 className="font-display text-3xl md:text-[48px] font-light leading-tight">
               Everton Rossi
             </h2>
-            <p className="mt-8 text-[16px] text-foreground/55 leading-relaxed max-w-lg">
+            <p className="mt-10 text-[16px] text-foreground/65 leading-relaxed max-w-lg">
               Com anos de atuação no mercado financeiro e patrimonial, Everton Rossi ajuda
               investidores e empresários a acessarem estratégias de alavancagem real — sem
               depender de banco ou soluções enlatadas.
@@ -51,7 +56,7 @@ function Page() {
         <div className="mx-auto max-w-5xl text-center">
           <p className="eyebrow mb-6">Nossa parceria</p>
           <h2 className="font-display text-3xl md:text-5xl font-light max-w-2xl mx-auto leading-tight">
-            Operamos junto à administradora com mais de 40 anos de mercado
+            Nossa parceria com a Canopus
           </h2>
           <img src={canopusLogo} alt="Consórcio Canopus" className="h-14 w-auto mx-auto mt-12 opacity-90" />
           <p className="mt-10 text-[16px] text-foreground/55 max-w-2xl mx-auto leading-relaxed">
@@ -84,6 +89,22 @@ function Page() {
               <p className="mt-4 text-[14px] text-foreground/45 leading-relaxed">{v.d}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="px-6 lg:px-10 py-24 md:py-32" style={{ background: "#0E0E0D", borderTop: "0.5px solid var(--border-gold)" }}>
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="gold-line mb-8 mx-auto" />
+          <h2 className="font-display text-3xl md:text-5xl font-light leading-tight">
+            Pronto para dar o próximo passo?
+          </h2>
+          <Link
+            to="/contato"
+            className="mt-12 inline-flex items-center px-8 py-4 text-[13px] tracking-[0.2em] uppercase"
+            style={{ background: "var(--gold)", color: "#111110", border: "0.5px solid var(--gold)" }}
+          >
+            Falar com especialista
+          </Link>
         </div>
       </section>
     </Layout>
