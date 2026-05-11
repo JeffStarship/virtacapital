@@ -32,8 +32,8 @@ function Index() {
             </em>
           </h1>
           <p className="mt-10 text-[14px] text-foreground/40 max-w-[380px] leading-relaxed">
-            Estruturamos estratégias com cartas de crédito contempladas para transformar ativos
-            parados em capital produtivo — sem banco, sem venda.
+            Geramos liquidez através do seu próprio patrimônio para você crescer mais rápido. Use o
+            que já construiu para financiar seus novos projetos e multiplicar seus resultados.
           </p>
           <div className="mt-12 flex flex-col sm:flex-row gap-5">
             <Link
@@ -88,9 +88,9 @@ function Index() {
           </h2>
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3" style={{ borderTop: "0.5px solid var(--border-gold)" }}>
             {[
-              { n: "01", t: "Alavancagem empresarial", d: "Capital em caixa para sua empresa expandir, sem vender o imóvel." },
-              { n: "02", t: "Aquisição com renda passiva", d: "Utilize a carta contemplada para adquirir um imóvel estratégico e gere fluxo de renda recorrente com capital que estava parado — sem comprometer sua liquidez." },
-              { n: "03", t: "Rendimento do CDI", d: "Rentabilidade em cima de capital de terceiros enquanto você define o próximo movimento." },
+              { n: "01", t: "Arbitragem de Capital", d: "Compre dinheiro barato e venda caro. A estratégia dos grandes investidores para lucrar na diferença de taxas sem usar capital próprio." },
+              { n: "02", t: "O Poder da Fração", d: "Tenha as chaves do seu próximo imóvel com apenas 20% de aporte. Deixe o mercado quitar o saldo enquanto você escala seu patrimônio." },
+              { n: "03", t: "Otimização de Yield", d: "Triplique o retorno dos seus ativos. Transforme imóveis que rendem 0,5% em fluxos de 1,5% ao mês e libere a rentabilidade que estava travada." },
             ].map((c, i) => (
               <div
                 key={c.n}

@@ -16,10 +16,10 @@ export const Route = createFileRoute("/como-funciona")({
 });
 
 const steps = [
-  { n: "01", t: "Você tem uma carta de crédito ou um imóvel", d: "O ponto de partida é um ativo já existente — patrimônio que pode trabalhar a seu favor." },
-  { n: "02", t: "A Virta Capital analisa sua situação e identifica a melhor estratégia", d: "Cada caso é único. Estudamos perfil, objetivos e horizonte para indicar o caminho ideal." },
-  { n: "03", t: "Estruturamos a operação junto à Canopus", d: "Conduzimos toda a operação em parceria com administradora regulamentada pelo BC.", canopus: true },
-  { n: "04", t: "Capital disponível — você decide como alocar", d: "Recursos liberados para o destino que a estratégia indicou: empresa, novo ativo ou rendimento." },
+  { n: "01", t: "Diagnóstico de Ativos", d: "Identificamos o potencial oculto no seu patrimônio atual. O ponto de partida é o que você já construiu." },
+  { n: "02", t: "Engenharia Financeira", d: "Desenhamos a estratégia sob medida para o seu perfil. Analisamos objetivos e horizontes para definir o melhor caminho de alavancagem." },
+  { n: "03", t: "Estruturação Institucional", d: "Conduzimos toda a operação com suporte de administradoras regulamentadas pelo Banco Central, garantindo máxima segurança jurídica ao seu movimento.", canopus: true },
+  { n: "04", t: "Capital Produtivo", d: "Recursos liberados e prontos para o destino estratégico: expansão de negócios, novos ativos ou maximização de rentabilidade." },
 ];
 
 const faq = [
@@ -35,8 +35,8 @@ function Page() {
     <Layout>
       <PageHero
         eyebrow="Como Funciona"
-        title="Da carta contemplada ao capital em movimento"
-        subtitle="Uma estratégia patrimonial estruturada em parceria com administradora regulamentada pelo Banco Central."
+        title="Da inteligência estratégica ao capital em movimento"
+        subtitle="Um fluxo desenhado para quem busca eficiência patrimonial e segurança institucional."
       />
 
       <section className="px-6 lg:px-10 py-20 md:py-28" style={{ borderTop: "0.5px solid var(--border-gold)" }}>
