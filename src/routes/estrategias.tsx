@@ -58,13 +58,13 @@ function Page() {
                 <h2 className="font-display text-3xl md:text-5xl font-light leading-tight">
                   {it.t}
                 </h2>
-                <p className="mt-8 text-[14px] text-foreground/55 leading-relaxed max-w-2xl">
+                <p className="mt-8 text-[16px] text-foreground/55 leading-relaxed max-w-2xl">
                   {it.d}
                 </p>
                 <Link
                   to="/contato"
                   search={{ assunto: it.assunto }}
-                  className="mt-10 inline-flex text-[11px] tracking-[0.2em] uppercase text-[color:var(--gold)] hover:text-[color:var(--gold-light)]"
+                  className="mt-10 inline-flex text-[13px] tracking-[0.2em] uppercase text-[color:var(--gold)] hover:text-[color:var(--gold-light)]"
                 >
                   Quero entender essa estratégia →
                 </Link>

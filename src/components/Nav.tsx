@@ -28,7 +28,7 @@ export function Nav() {
             <Link
               key={l.to}
               to={l.to}
-              className="text-[11px] tracking-[0.15em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors"
+              className="text-[13px] tracking-[0.15em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors"
               activeProps={{ style: { color: "var(--gold)" } }}
             >
               {l.label}
@@ -37,7 +37,7 @@ export function Nav() {
         </nav>
         <Link
           to="/contato"
-          className="hidden lg:inline-flex items-center px-5 py-2 text-[11px] tracking-[0.2em] uppercase text-[color:var(--gold)]"
+          className="hidden lg:inline-flex items-center px-5 py-2 text-[13px] tracking-[0.2em] uppercase text-[color:var(--gold)]"
           style={{ border: "0.5px solid var(--gold)" }}
         >
           Conversar
@@ -69,7 +69,7 @@ export function Nav() {
             <Link
               to="/contato"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center px-5 py-3 text-[11px] tracking-[0.2em] uppercase text-[color:var(--gold)] w-fit"
+              className="inline-flex items-center justify-center px-5 py-3 text-[13px] tracking-[0.2em] uppercase text-[color:var(--gold)] w-fit"
               style={{ border: "0.5px solid var(--gold)" }}
             >
               Conversar

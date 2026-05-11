@@ -49,13 +49,13 @@ function Page() {
                 borderBottom: "0.5px solid var(--border-gold)",
               }}
             >
-              <div className="text-[10px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
+              <div className="text-[12px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
                 0{i + 1}
               </div>
               <h3 className="mt-6 font-display text-2xl md:text-3xl font-light leading-tight">
                 {p.t}
               </h3>
-              <p className="mt-6 text-[13px] text-foreground/50 leading-relaxed">{p.d}</p>
+              <p className="mt-6 text-[15px] text-foreground/50 leading-relaxed">{p.d}</p>
             </div>
           ))}
         </div>
@@ -65,12 +65,12 @@ function Page() {
         <div className="mx-auto max-w-3xl text-center">
           <div className="gold-line mb-8 mx-auto" />
           <h2 className="font-display text-3xl md:text-5xl font-light">Você se identifica?</h2>
-          <p className="mt-8 text-[13px] text-foreground/50 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 text-[15px] text-foreground/50 max-w-xl mx-auto leading-relaxed">
             Se algum desses perfis se aproxima do seu momento, vale uma conversa.
           </p>
           <Link
             to="/contato"
-            className="mt-12 inline-flex items-center px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
+            className="mt-12 inline-flex items-center px-8 py-4 text-[13px] tracking-[0.2em] uppercase"
             style={{ background: "var(--gold)", color: "#111110" }}
           >
             Falar com especialista

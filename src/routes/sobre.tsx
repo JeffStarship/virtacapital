@@ -32,10 +32,10 @@ function Page() {
           />
           <div>
             <p className="eyebrow mb-4">Alavancagem Patrimonial</p>
-            <h2 className="font-display text-3xl md:text-[40px] font-light leading-tight">
+            <h2 className="font-display text-3xl md:text-[48px] font-light leading-tight">
               Everton Rossi
             </h2>
-            <p className="mt-8 text-[14px] text-foreground/55 leading-relaxed max-w-lg">
+            <p className="mt-8 text-[16px] text-foreground/55 leading-relaxed max-w-lg">
               Com anos de atuação no mercado financeiro e patrimonial, Everton Rossi ajuda
               investidores e empresários a acessarem estratégias de alavancagem real — sem
               depender de banco ou soluções enlatadas.
@@ -54,7 +54,7 @@ function Page() {
             Operamos junto à administradora com mais de 40 anos de mercado
           </h2>
           <img src={canopusLogo} alt="Consórcio Canopus" className="h-14 w-auto mx-auto mt-12 opacity-90" />
-          <p className="mt-10 text-[14px] text-foreground/55 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-10 text-[16px] text-foreground/55 max-w-2xl mx-auto leading-relaxed">
             O Consórcio Canopus é regulamentado pelo Banco Central do Brasil, com presença em todo o território nacional. Toda operação Virta Capital passa por essa estrutura — segurança jurídica e regulatória do início ao fim.
           </p>
         </div>
@@ -81,7 +81,7 @@ function Page() {
               <h3 className="font-display text-2xl font-light" style={{ color: "var(--gold)" }}>
                 {v.t}
               </h3>
-              <p className="mt-4 text-[12px] text-foreground/45 leading-relaxed">{v.d}</p>
+              <p className="mt-4 text-[14px] text-foreground/45 leading-relaxed">{v.d}</p>
             </div>
           ))}
         </div>

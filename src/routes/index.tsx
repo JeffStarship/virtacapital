@@ -25,27 +25,27 @@ function Index() {
         <div className="mx-auto max-w-6xl">
           <div className="gold-line mb-8" />
           <p className="eyebrow mb-8">Alavancagem Patrimonial</p>
-          <h1 className="font-display font-light leading-[1.05] text-[42px] md:text-[64px] max-w-4xl">
+          <h1 className="font-display font-light leading-[1.05] text-[50px] md:text-[76px] max-w-4xl">
             Patrimônio imobilizado é capital{" "}
             <em className="italic" style={{ color: "var(--gold)" }}>
               desperdiçado
             </em>
           </h1>
-          <p className="mt-10 text-[12px] text-foreground/40 max-w-[380px] leading-relaxed">
+          <p className="mt-10 text-[14px] text-foreground/40 max-w-[380px] leading-relaxed">
             Estruturamos estratégias com cartas de crédito contempladas para transformar ativos
             parados em capital produtivo — sem banco, sem venda.
           </p>
           <div className="mt-12 flex flex-col sm:flex-row gap-5">
             <Link
               to="/como-funciona"
-              className="inline-flex items-center justify-center px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
+              className="inline-flex items-center justify-center px-8 py-4 text-[13px] tracking-[0.2em] uppercase"
               style={{ background: "var(--gold)", color: "#111110" }}
             >
               Entender a estratégia
             </Link>
             <Link
               to="/estrategias"
-              className="inline-flex items-center text-[11px] tracking-[0.2em] uppercase text-foreground/70 hover:text-[color:var(--gold)]"
+              className="inline-flex items-center text-[13px] tracking-[0.2em] uppercase text-foreground/70 hover:text-[color:var(--gold)]"
             >
               Ver estratégias →
             </Link>
@@ -70,7 +70,7 @@ function Index() {
               <div className="font-display text-3xl md:text-4xl font-light" style={{ color: "var(--gold)" }}>
                 {s.n}
               </div>
-              <div className="mt-3 text-[9px] tracking-[0.3em] uppercase text-foreground/30">
+              <div className="mt-3 text-[11px] tracking-[0.3em] uppercase text-foreground/30">
                 {s.l}
               </div>
             </div>
@@ -100,18 +100,18 @@ function Index() {
                   borderBottom: "0.5px solid var(--border-gold)",
                 }}
               >
-                <div className="text-[10px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
+                <div className="text-[12px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
                   {c.n}
                 </div>
                 <h3 className="mt-6 font-display text-2xl font-light leading-tight">{c.t}</h3>
-                <p className="mt-5 text-[13px] text-foreground/45 leading-relaxed">{c.d}</p>
+                <p className="mt-5 text-[15px] text-foreground/45 leading-relaxed">{c.d}</p>
               </div>
             ))}
           </div>
           <div className="mt-12">
             <Link
               to="/estrategias"
-              className="text-[11px] tracking-[0.2em] uppercase text-foreground/70 hover:text-[color:var(--gold)]"
+              className="text-[13px] tracking-[0.2em] uppercase text-foreground/70 hover:text-[color:var(--gold)]"
             >
               Ver todas as estratégias →
             </Link>
@@ -138,16 +138,16 @@ function Index() {
             <h2 className="font-display text-4xl md:text-5xl font-light leading-tight">
               Everton Rossi
             </h2>
-            <p className="mt-3 text-[10px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
+            <p className="mt-3 text-[12px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
               Alavancagem Patrimonial
             </p>
-            <p className="mt-8 text-[13px] text-foreground/55 leading-relaxed max-w-md">
+            <p className="mt-8 text-[15px] text-foreground/55 leading-relaxed max-w-md">
               Anos de atuação no mercado financeiro e patrimonial, ajudando investidores e
               empresários a acessarem estratégias de alavancagem real — sem depender de banco.
             </p>
             <Link
               to="/sobre"
-              className="mt-8 inline-flex text-[11px] tracking-[0.2em] uppercase text-foreground/70 hover:text-[color:var(--gold)]"
+              className="mt-8 inline-flex text-[13px] tracking-[0.2em] uppercase text-foreground/70 hover:text-[color:var(--gold)]"
             >
               Conhecer a equipe →
             </Link>
@@ -164,7 +164,7 @@ function Index() {
           </h2>
           <Link
             to="/contato"
-            className="mt-12 inline-flex items-center px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
+            className="mt-12 inline-flex items-center px-8 py-4 text-[13px] tracking-[0.2em] uppercase"
             style={{ background: "var(--gold)", color: "#111110" }}
           >
             Falar com especialista

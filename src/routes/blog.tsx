@@ -29,17 +29,17 @@ function Page() {
         style={{ borderTop: "0.5px solid var(--border-gold)" }}
       >
         <div className="mx-auto max-w-3xl">
-          <p className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
+          <p className="text-[12px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
             Patrimônio · Profissionais liberais
           </p>
           <h2 className="mt-6 font-display text-3xl md:text-5xl font-light leading-[1.15]">
             O médico que dedicou a vida à medicina — e ainda assim pode não conseguir se aposentar bem
           </h2>
-          <p className="mt-6 text-[11px] tracking-wider text-foreground/35 uppercase">
+          <p className="mt-6 text-[13px] tracking-wider text-foreground/35 uppercase">
             Tempo de leitura · 6 min
           </p>
 
-          <div className="mt-14 flex flex-col gap-7 text-[15px] leading-[1.85] text-foreground/75">
+          <div className="mt-14 flex flex-col gap-7 text-[18px] leading-[1.85] text-foreground/75">
             <p>
               Existe uma imagem cristalizada no imaginário brasileiro: a do médico bem-sucedido,
               estável, financeiramente tranquilo. Uma imagem que parece justa diante do esforço
@@ -152,7 +152,7 @@ function Page() {
               className="mt-16 pt-10"
               style={{ borderTop: "0.5px solid var(--border-gold)" }}
             >
-              <p className="text-[13px] text-foreground/50 leading-relaxed">
+              <p className="text-[15px] text-foreground/50 leading-relaxed">
                 Se este texto fez sentido para o seu momento, vale uma conversa.{" "}
                 <Link
                   to="/contato"
