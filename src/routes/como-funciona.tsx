@@ -30,7 +30,7 @@ const faq = [
 ];
 
 function Page() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   return (
     <Layout>
       <PageHero
@@ -63,7 +63,7 @@ function Page() {
                     <img src={canopusStar} alt="Canopus" className="h-6 w-6 opacity-80 inline-block" />
                   )}
                 </h3>
-                <p className="mt-4 text-[13px] text-foreground/50 leading-relaxed max-w-xl">{s.d}</p>
+                <p className="mt-4 text-[15px] text-foreground/50 leading-relaxed max-w-xl">{s.d}</p>
               </div>
             ))}
           </div>
@@ -89,7 +89,7 @@ function Page() {
                   )}
                 </button>
                 {open === i && (
-                  <p className="pb-6 text-[13px] text-foreground/55 leading-relaxed max-w-2xl">{f.a}</p>
+                  <p className="pb-6 text-[15px] text-foreground/55 leading-relaxed max-w-2xl">{f.a}</p>
                 )}
               </div>
             ))}
@@ -102,7 +102,7 @@ function Page() {
           <h2 className="font-display text-3xl md:text-4xl font-light">Vamos conversar?</h2>
           <Link
             to="/contato"
-            className="mt-10 inline-flex items-center px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
+            className="mt-10 inline-flex items-center px-8 py-4 text-[13px] tracking-[0.2em] uppercase"
             style={{ background: "var(--gold)", color: "#111110" }}
           >
             Falar com especialista

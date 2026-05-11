@@ -84,7 +84,7 @@ function Page() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="self-start mt-4 px-10 py-4 text-[11px] tracking-[0.2em] uppercase disabled:opacity-50"
+                  className="self-start mt-4 px-10 py-4 text-[13px] tracking-[0.2em] uppercase disabled:opacity-50"
                   style={{ background: "var(--gold)", color: "#111110" }}
                 >
                   {loading ? "Enviando…" : "Quero entender melhor!"}
@@ -96,9 +96,9 @@ function Page() {
           <aside className="md:col-span-2 flex flex-col gap-8">
             <div className="border-thin p-8">
               <p className="eyebrow mb-6">Contato direto</p>
-              <div className="flex flex-col gap-5 text-[13px]">
+              <div className="flex flex-col gap-5 text-[15px]">
                 <div>
-                  <div className="text-[10px] tracking-[0.3em] uppercase text-foreground/35">WhatsApp</div>
+                  <div className="text-[12px] tracking-[0.3em] uppercase text-foreground/35">WhatsApp</div>
                   <a
                     href="https://wa.me/5548888283393"
                     target="_blank"
@@ -109,7 +109,7 @@ function Page() {
                   </a>
                 </div>
                 <div>
-                  <div className="text-[10px] tracking-[0.3em] uppercase text-foreground/35">Email</div>
+                  <div className="text-[12px] tracking-[0.3em] uppercase text-foreground/35">Email</div>
                   <a href="mailto:contato@virtacapital.com.br" className="mt-2 block text-foreground/80 break-all">
                     contato@virtacapital.com.br
                   </a>
@@ -119,10 +119,10 @@ function Page() {
             <div className="border-thin p-6 flex items-center gap-4">
               <img src={canopusStar} alt="Canopus" className="h-9 w-9 opacity-90" />
               <div>
-                <div className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
+                <div className="text-[12px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
                   Parceiro Canopus
                 </div>
-                <p className="mt-1 text-[11px] text-foreground/45">
+                <p className="mt-1 text-[13px] text-foreground/45">
                   Operações conduzidas via administradora regulamentada pelo BC.
                 </p>
               </div>
@@ -149,15 +149,15 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-[10px] tracking-[0.3em] uppercase text-foreground/45">{label}</span>
+      <span className="text-[12px] tracking-[0.3em] uppercase text-foreground/45">{label}</span>
       <input
         name={name}
         type={type}
         required={required}
-        className="bg-transparent px-4 py-3 text-[14px] text-foreground outline-none focus:border-[color:var(--gold-light)]"
+        className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none focus:border-[color:var(--gold-light)]"
         style={{ border: "0.5px solid var(--gold)" }}
       />
-      {error && <span className="text-[11px] text-red-400/70">{error}</span>}
+      {error && <span className="text-[13px] text-red-400/70">{error}</span>}
     </label>
   );
 }
