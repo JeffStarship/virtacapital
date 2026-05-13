@@ -1,23 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
+import { usePageMeta } from "@/lib/seo";
 import everton from "@/assets/everton.webp";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Virta Capital — Alavancagem Patrimonial" },
-      {
-        name: "description",
-        content:
-          "Estratégias com cartas de crédito contempladas. Transforme ativos parados em capital produtivo.",
-      },
-      { property: "og:title", content: "Virta Capital — Alavancagem Patrimonial" },
-    ],
-  }),
-  component: Index,
-});
-
-function Index() {
+export default function Index() {
+  usePageMeta(
+    "Virta Capital — Alavancagem Patrimonial",
+    "Estratégias com cartas de crédito contempladas. Transforme ativos parados em capital produtivo.",
+  );
   return (
     <Layout>
       {/* HERO */}

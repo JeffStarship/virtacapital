@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import logo from "@/assets/virta-logo.svg";
 import { Menu, X } from "lucide-react";
@@ -25,14 +25,14 @@ export function Nav() {
         </Link>
         <nav className="hidden lg:flex items-center gap-9">
           {links.map((l) => (
-            <Link
+            <NavLink
               key={l.to}
               to={l.to}
               className="text-[13px] tracking-[0.15em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors"
-              activeProps={{ style: { color: "var(--gold)" } }}
+              style={({ isActive }) => (isActive ? { color: "var(--gold)" } : undefined)}
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <Link

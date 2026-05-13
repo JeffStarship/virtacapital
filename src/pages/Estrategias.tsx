@@ -1,16 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout, PageHero } from "@/components/Layout";
-
-export const Route = createFileRoute("/estrategias")({
-  head: () => ({
-    meta: [
-      { title: "Estratégias — Virta Capital" },
-      { name: "description", content: "Três formas de transformar seu patrimônio em capital produtivo." },
-      { property: "og:title", content: "Estratégias — Virta Capital" },
-    ],
-  }),
-  component: Page,
-});
+import { usePageMeta } from "@/lib/seo";
 
 const items = [
   {
@@ -33,7 +23,11 @@ const items = [
   },
 ];
 
-function Page() {
+export default function Estrategias() {
+  usePageMeta(
+    "Estratégias — Virta Capital",
+    "Três formas de transformar seu patrimônio em capital produtivo.",
+  );
   return (
     <Layout>
       <PageHero eyebrow="Estratégias" title="Três formas de transformar seu patrimônio" />
@@ -62,8 +56,7 @@ function Page() {
                   {it.d}
                 </p>
                 <Link
-                  to="/contato"
-                  search={{ assunto: it.assunto }}
+                  to={`/contato?assunto=${it.assunto}`}
                   className="mt-10 inline-flex text-[13px] tracking-[0.2em] uppercase text-[color:var(--gold)] hover:text-[color:var(--gold-light)]"
                 >
                   Quero entender essa estratégia →
