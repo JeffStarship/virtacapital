@@ -1,20 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout, PageHero } from "@/components/Layout";
+import { usePageMeta } from "@/lib/seo";
 import everton from "@/assets/everton.webp";
 import canopusLogo from "@/assets/canopus-logo.png";
 
-export const Route = createFileRoute("/sobre")({
-  head: () => ({
-    meta: [
-      { title: "Sobre — Virta Capital" },
-      { name: "description", content: "Quem está por trás da Virta Capital." },
-      { property: "og:title", content: "Sobre — Virta Capital" },
-    ],
-  }),
-  component: Page,
-});
-
-function Page() {
+export default function Sobre() {
+  usePageMeta("Sobre — Virta Capital", "Quem está por trás da Virta Capital.");
   return (
     <Layout>
       <PageHero eyebrow="Sobre" title="Quem está por trás da Virta Capital" />

@@ -1,16 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout, PageHero } from "@/components/Layout";
-
-export const Route = createFileRoute("/para-quem-e")({
-  head: () => ({
-    meta: [
-      { title: "Para Quem É — Virta Capital" },
-      { name: "description", content: "Para quem já construiu patrimônio e quer fazê-lo trabalhar." },
-      { property: "og:title", content: "Para Quem É — Virta Capital" },
-    ],
-  }),
-  component: Page,
-});
+import { usePageMeta } from "@/lib/seo";
 
 const profiles = [
   {
@@ -27,7 +17,11 @@ const profiles = [
   },
 ];
 
-function Page() {
+export default function ParaQuemE() {
+  usePageMeta(
+    "Para Quem É — Virta Capital",
+    "Para quem já construiu patrimônio e quer fazê-lo trabalhar.",
+  );
   return (
     <Layout>
       <PageHero

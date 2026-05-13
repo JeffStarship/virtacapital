@@ -1,19 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Layout, PageHero } from "@/components/Layout";
+import { usePageMeta } from "@/lib/seo";
 import canopusStar from "@/assets/canopus-star.png";
 import { Plus, Minus } from "lucide-react";
-
-export const Route = createFileRoute("/como-funciona")({
-  head: () => ({
-    meta: [
-      { title: "Como Funciona — Virta Capital" },
-      { name: "description", content: "Entenda como transformamos cartas contempladas em capital produtivo." },
-      { property: "og:title", content: "Como Funciona — Virta Capital" },
-    ],
-  }),
-  component: Page,
-});
 
 const steps = [
   { n: "01", t: "Diagnóstico de Ativos", d: "Identificamos o potencial oculto no seu patrimônio atual. O ponto de partida é o que você já construiu." },
@@ -29,7 +19,11 @@ const faq = [
   { q: "É regulamentado?", a: "Sim. Toda a operação acontece via Canopus, administradora regulamentada pelo Banco Central do Brasil." },
 ];
 
-function Page() {
+export default function ComoFunciona() {
+  usePageMeta(
+    "Como Funciona — Virta Capital",
+    "Entenda como transformamos cartas contempladas em capital produtivo.",
+  );
   const [open, setOpen] = useState<number | null>(null);
   return (
     <Layout>

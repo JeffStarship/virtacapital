@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import logo from "@/assets/virta-logo.svg";
 import canopusLogo from "@/assets/canopus-logo.png";
 

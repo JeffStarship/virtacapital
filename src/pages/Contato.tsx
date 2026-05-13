@@ -1,24 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { Layout, PageHero } from "@/components/Layout";
+import { usePageMeta } from "@/lib/seo";
 import canopusStar from "@/assets/canopus-star.png";
-
-const searchSchema = z.object({
-  assunto: z.string().optional(),
-});
-
-export const Route = createFileRoute("/contato")({
-  validateSearch: searchSchema,
-  head: () => ({
-    meta: [
-      { title: "Contato — Virta Capital" },
-      { name: "description", content: "Vamos estruturar sua estratégia patrimonial." },
-      { property: "og:title", content: "Contato — Virta Capital" },
-    ],
-  }),
-  component: Page,
-});
 
 const formSchema = z.object({
   nome: z.string().trim().min(2, "Informe seu nome completo").max(120),
@@ -26,7 +10,8 @@ const formSchema = z.object({
   whatsapp: z.string().trim().min(8, "WhatsApp inválido").max(30),
 });
 
-function Page() {
+export default function Contato() {
+  usePageMeta("Contato — Virta Capital", "Vamos estruturar sua estratégia patrimonial.");
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);

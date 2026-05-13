@@ -1,20 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout, PageHero } from "@/components/Layout";
-
-export const Route = createFileRoute("/blog")({
-  head: () => ({
-    meta: [
-      { title: "Matérias — Virta Capital" },
-      {
-        name: "description",
-        content:
-          "Uma análise honesta sobre a jornada financeira do médico brasileiro e o que é possível fazer diferente.",
-      },
-      { property: "og:title", content: "Matérias — Virta Capital" },
-    ],
-  }),
-  component: Page,
-});
+import { usePageMeta } from "@/lib/seo";
 
 const sections: { h: string; ps: string[] }[] = [
   {
@@ -55,13 +41,14 @@ const sections: { h: string; ps: string[] }[] = [
   },
 ];
 
-function Page() {
+export default function Blog() {
+  usePageMeta(
+    "Matérias — Virta Capital",
+    "Uma análise honesta sobre a jornada financeira do médico brasileiro e o que é possível fazer diferente.",
+  );
   return (
     <Layout>
-      <PageHero
-        eyebrow="Matérias"
-        title="Conteúdo sobre patrimônio e alavancagem"
-      />
+      <PageHero eyebrow="Matérias" title="Conteúdo sobre patrimônio e alavancagem" />
 
       <article
         className="px-6 lg:px-10 py-20 md:py-28"
