@@ -13,7 +13,7 @@ const sections = [
   },
   {
     h: "A inflação corrói o que parece estável",
-    p: "Dinheiro parado não fica do mesmo tamanho — encolhe. A inflação reduz silenciosamente o poder de compra de qualquer valor que não renda acima dela. O que parecia uma reserva sólida há cinco anos compra menos hoje. O patrimônio "seguro" que não trabalha não está só deixando de crescer: em termos reais, está diminuindo.",
+    p: "Dinheiro parado não fica do mesmo tamanho — encolhe. A inflação reduz silenciosamente o poder de compra de qualquer valor que não renda acima dela. O que parecia uma reserva sólida há cinco anos compra menos hoje. O patrimônio 'seguro' que não trabalha não está só deixando de crescer: em termos reais, está diminuindo.",
   },
   {
     h: "O imóvel quitado: conquista real, âncora silenciosa",
@@ -32,7 +32,7 @@ const sections = [
 export default function ArtigoPatrimonio() {
   usePageMeta(
     "O custo invisível de deixar o patrimônio parado — Virta Capital",
-    "Por que ativos quitados e dinheiro "seguro" podem estar custando mais do que parecem.",
+    "Por que ativos quitados e dinheiro 'seguro' podem estar custando mais do que parecem.",
   );
   return (
     <Layout>
@@ -48,7 +48,7 @@ export default function ArtigoPatrimonio() {
             O custo invisível de deixar o patrimônio parado
           </h1>
           <p className="mt-6 text-[17px] text-foreground/55 leading-relaxed">
-            Por que ativos quitados e dinheiro "seguro" podem estar custando mais do que parecem.
+            Por que ativos quitados e dinheiro 'seguro' podem estar custando mais do que parecem.
           </p>
           <div className="mt-14 flex flex-col gap-8 text-[17px] leading-[1.85] text-foreground/75">
             {sections.map((s) => (

@@ -7,7 +7,7 @@ const articles = [
     slug: "/blog/patrimonio-parado",
     tag: "Patrimônio · Estratégia",
     title: "O custo invisível de deixar o patrimônio parado",
-    excerpt: "Por que ativos quitados e dinheiro "seguro" podem estar custando mais do que parecem.",
+    excerpt: "Por que ativos quitados e dinheiro 'seguro' podem estar custando mais do que parecem.",
     readTime: "4 min",
     featured: true,
   },
