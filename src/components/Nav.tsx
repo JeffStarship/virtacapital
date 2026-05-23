@@ -10,7 +10,7 @@ const links = [
   { to: "/para-quem-e", label: "Para Quem É" },
   { to: "/sobre", label: "Sobre" },
   { to: "/blog", label: "Matérias" },
-  { to: "/calculadora", label: "Calculadora" },
+  { to: "/calculadora", label: "Calculadora de\nRenda Passiva" },
   { to: "/contato", label: "Contato" },
 ] as const;
 
@@ -23,17 +23,19 @@ export function Nav() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-24 flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Virta Capital" className="h-16 md:h-20 w-auto" />
+          <img src={logo} alt="Virta Capital" className="h-20 md:h-24 w-auto" />
         </Link>
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-7">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
-              className="text-[13px] tracking-[0.15em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors"
+              className="text-[10px] tracking-[0.15em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors"
               style={({ isActive }) => (isActive ? { color: "var(--gold)" } : undefined)}
             >
-              {l.label}
+              {l.label.split("\n").map((line, i) => (
+                <span key={i} className="block">{line}</span>
+              ))}
             </NavLink>
           ))}
         </nav>

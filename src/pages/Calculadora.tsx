@@ -217,6 +217,22 @@ export default function Calculadora() {
         <div className="mx-auto max-w-4xl">
           {!unlocked ? (
             <div className="flex flex-col gap-8">
+              {/* Descrição */}
+              <div className="flex flex-col gap-6 text-[16px] leading-[1.85] text-foreground/70 max-w-2xl">
+                <p>
+                  A maioria das pessoas subestima quanto vai precisar para se aposentar com conforto. O motivo é simples: os cálculos comuns ignoram a inflação — e ela corrói silenciosamente o poder de compra ao longo dos anos.
+                </p>
+                <p>
+                  Esta calculadora usa as médias históricas reais da Selic e do IPCA dos últimos 15 anos para mostrar seu <span style={{ color: "var(--gold)" }}>número real</span>: o patrimônio que você precisa acumular, o aporte mensal necessário e o quanto a inflação vai impactar sua renda no futuro.
+                </p>
+                <p>
+                  Diferente de outras calculadoras, aqui você vê o custo de oportunidade de não agir — e o ponto de partida para uma estratégia patrimonial de verdade.
+                </p>
+              </div>
+
+              <div className="py-4 px-6 text-[13px] text-foreground/40" style={{ border: "0.5px solid var(--border-gold)" }}>
+                Para acessar a calculadora, preencha seus dados abaixo. Gratuito, sem compromisso.
+              </div>
               {/* Instruções */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
