@@ -217,21 +217,41 @@ export default function Calculadora() {
         <div className="mx-auto max-w-4xl">
           {!unlocked ? (
             <div className="flex flex-col gap-8">
-              {/* Descrição */}
-              <div className="flex flex-col gap-6 text-[16px] leading-[1.85] text-foreground/70 max-w-2xl">
-                <p>
-                  A maioria das pessoas subestima quanto vai precisar para se aposentar com conforto. O motivo é simples: os cálculos comuns ignoram a inflação — e ela corrói silenciosamente o poder de compra ao longo dos anos.
-                </p>
-                <p>
-                  Esta calculadora usa as médias históricas reais da Selic e do IPCA dos últimos 15 anos para mostrar seu <span style={{ color: "var(--gold)" }}>número real</span>: o patrimônio que você precisa acumular, o aporte mensal necessário e o quanto a inflação vai impactar sua renda no futuro.
-                </p>
-                <p>
-                  Diferente de outras calculadoras, aqui você vê o custo de oportunidade de não agir — e o ponto de partida para uma estratégia patrimonial de verdade.
-                </p>
+              {/* Copy de impacto */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-4">
+                <div>
+                  <div className="font-display text-6xl md:text-7xl font-light mb-2" style={{ color: "var(--gold)" }}>
+                    5,8%
+                  </div>
+                  <div className="text-[11px] tracking-[0.2em] uppercase text-foreground/35 mb-6">
+                    IPCA médio ao ano · últimos 15 anos
+                  </div>
+                  <p className="text-[15px] leading-[1.85] text-foreground/65">
+                    Em 20 anos, <strong className="text-foreground">R$ 10.000 de hoje</strong> vão precisar de quase{" "}
+                    <strong style={{ color: "var(--gold-light)" }}>R$ 31.000</strong> para manter o mesmo poder de compra.
+                    A maioria das pessoas planeja a aposentadoria sem considerar isso — e chega lá com metade do que precisava.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-5 text-[15px] leading-[1.85] text-foreground/65">
+                  <p>
+                    Esta calculadora usa as médias históricas reais da Selic e do IPCA para mostrar seu{" "}
+                    <em style={{ color: "var(--fg)" }}>número verdadeiro</em>: o patrimônio que você precisa acumular,
+                    o aporte mensal necessário e o impacto real da inflação no seu poder de compra futuro.
+                  </p>
+                  <p>
+                    Não é uma projeção otimista. É uma análise honesta — do tipo que bancos raramente mostram,
+                    porque quando você entende o número real, fica impossível continuar deixando patrimônio parado.
+                  </p>
+                </div>
               </div>
 
-              <div className="py-4 px-6 text-[13px] text-foreground/40" style={{ border: "0.5px solid var(--border-gold)" }}>
-                Para acessar a calculadora, preencha seus dados abaixo. Gratuito, sem compromisso.
+              <div className="py-4 px-6 flex items-center gap-3" style={{ border: "0.5px solid var(--border-gold)" }}>
+                <span className="text-[11px] tracking-[0.3em] uppercase flex-shrink-0" style={{ color: "var(--gold)" }}>
+                  Acesso gratuito
+                </span>
+                <span className="text-[13px] text-foreground/40">
+                  Preencha seus dados abaixo para liberar a calculadora. Sem spam, sem compromisso.
+                </span>
               </div>
               {/* Instruções */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

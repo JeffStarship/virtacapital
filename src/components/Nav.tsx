@@ -5,9 +5,9 @@ import { Menu, X } from "lucide-react";
 
 const links = [
   { to: "/", label: "Início" },
-  { to: "/como-funciona", label: "Como Funciona" },
+  { to: "/como-funciona", label: "Como\nFunciona" },
   { to: "/estrategias", label: "Estratégias" },
-  { to: "/para-quem-e", label: "Para Quem É" },
+  { to: "/para-quem-e", label: "Perfil" },
   { to: "/sobre", label: "Sobre" },
   { to: "/blog", label: "Matérias" },
   { to: "/calculadora", label: "Calculadora de\nRenda Passiva" },
@@ -22,15 +22,16 @@ export function Nav() {
       style={{ borderBottom: "0.5px solid rgba(180,150,90,0.15)" }}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-24 flex items-center justify-between">
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center flex-shrink-0">
           <img src={logo} alt="Virta Capital" className="h-20 md:h-24 w-auto" />
         </Link>
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-6">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
-              className="text-[10px] tracking-[0.15em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors"
+              end={l.to === "/"}
+              className="text-[10px] tracking-[0.12em] uppercase text-foreground/70 hover:text-[color:var(--gold)] transition-colors text-center leading-[1.4] whitespace-nowrap"
               style={({ isActive }) => (isActive ? { color: "var(--gold)" } : undefined)}
             >
               {l.label.split("\n").map((line, i) => (
@@ -41,7 +42,7 @@ export function Nav() {
         </nav>
         <Link
           to="/contato"
-          className="hidden lg:inline-flex items-center px-5 py-2 text-[13px] tracking-[0.2em] uppercase text-[color:var(--gold)]"
+          className="hidden lg:inline-flex items-center px-5 py-2 text-[11px] tracking-[0.2em] uppercase text-[color:var(--gold)] flex-shrink-0"
           style={{ border: "0.5px solid var(--gold)" }}
         >
           Conversar
@@ -67,7 +68,7 @@ export function Nav() {
                 onClick={() => setOpen(false)}
                 className="text-xs tracking-[0.15em] uppercase text-foreground/80"
               >
-                {l.label}
+                {l.label.replace("\n", " ")}
               </Link>
             ))}
             <Link
