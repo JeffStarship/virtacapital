@@ -1,43 +1,85 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { Layout, PageHero } from "@/components/Layout";
 import { usePageMeta } from "@/lib/seo";
 import canopusStar from "@/assets/canopus-star.png";
 
+const WEBHOOK_URL = "https://n8n.virtacapital.com.br/webhook/virta-lead";
+
+const ORIGENS: Record<string, string> = {
+  "alavancagem-empresarial": "Alavancagem Empresarial",
+  "aquisicao-renda-passiva": "Aquisição com Renda Passiva",
+  "rendimento-cdi": "Rendimento do CDI",
+  "calculadora": "Calculadora",
+};
+
+const ORIGEM_IDS: Record<string, number> = {
+  contato: 33,
+  calculadora: 32,
+};
+
 const formSchema = z.object({
   nome: z.string().trim().min(2, "Informe seu nome completo").max(120),
   email: z.string().trim().email("Email inválido").max(255),
-  whatsapp: z.string().trim().min(8, "WhatsApp inválido").max(30),
+  whatsapp: z.string().trim().min(10, "WhatsApp inválido").max(20),
 });
+
+function formatWhatsApp(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits.length ? `(${digits}` : "";
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
 
 export default function Contato() {
   usePageMeta("Contato — Virta Capital", "Vamos estruturar sua estratégia patrimonial.");
-  const [sent, setSent] = useState(false);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const assunto = searchParams.get("assunto") || "";
+  const origemSecundaria = ORIGENS[assunto] || "";
+  const origemId = assunto === "calculadora" ? ORIGEM_IDS["calculadora"] : ORIGEM_IDS["contato"];
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [whatsapp, setWhatsapp] = useState("");
+  const whatsappRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const rawWhatsapp = whatsapp.replace(/\D/g, "");
     const data = {
       nome: String(fd.get("nome") || ""),
       email: String(fd.get("email") || ""),
-      whatsapp: String(fd.get("whatsapp") || ""),
+      whatsapp: rawWhatsapp,
     };
-    const result = formSchema.safeParse(data);
+    const result = formSchema.safeParse({ ...data, whatsapp: rawWhatsapp });
     if (!result.success) {
       const errs: Record<string, string> = {};
-      result.error.issues.forEach((i) => {
-        errs[String(i.path[0])] = i.message;
-      });
+      result.error.issues.forEach((i) => { errs[String(i.path[0])] = i.message; });
       setErrors(errs);
       return;
     }
     setErrors({});
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 600));
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: data.nome,
+          email: data.email,
+          whatsapp: rawWhatsapp,
+          origem: "Conversar",
+          origem_id: origemId,
+          origem_secundaria: origemSecundaria,
+        }),
+      });
+    } catch (_) {}
     setLoading(false);
-    setSent(true);
+    navigate("/blog?obrigado=1");
   };
 
   return (
@@ -54,28 +96,41 @@ export default function Contato() {
       >
         <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-20">
           <div className="md:col-span-3">
-            {sent ? (
-              <div className="p-10 border-thin">
-                <p className="eyebrow mb-4">Mensagem enviada</p>
-                <h3 className="font-display text-2xl md:text-3xl font-light leading-tight">
-                  Recebemos seu contato. Everton entrará em contato em breve.
-                </h3>
+            {origemSecundaria && (
+              <div className="mb-8 px-4 py-3" style={{ border: "0.5px solid var(--border-gold)" }}>
+                <p className="text-[12px] tracking-[0.25em] uppercase" style={{ color: "var(--gold)" }}>
+                  Estratégia selecionada: {origemSecundaria}
+                </p>
               </div>
-            ) : (
-              <form onSubmit={onSubmit} className="flex flex-col gap-7" noValidate>
-                <Field label="Nome completo" name="nome" required error={errors.nome} />
-                <Field label="Email" name="email" type="email" required error={errors.email} />
-                <Field label="WhatsApp" name="whatsapp" required error={errors.whatsapp} />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="self-start mt-4 px-10 py-4 text-[13px] tracking-[0.2em] uppercase disabled:opacity-50"
-                  style={{ background: "var(--gold)", color: "#111110" }}
-                >
-                  {loading ? "Enviando…" : "Quero entender melhor!"}
-                </button>
-              </form>
             )}
+            <form onSubmit={onSubmit} className="flex flex-col gap-7" noValidate>
+              <Field label="Nome completo" name="nome" required error={errors.nome} />
+              <Field label="Email" name="email" type="email" required error={errors.email} />
+              <label className="flex flex-col gap-2">
+                <span className="text-[12px] tracking-[0.3em] uppercase text-foreground/45">WhatsApp</span>
+                <input
+                  ref={whatsappRef}
+                  name="whatsapp"
+                  type="tel"
+                  inputMode="numeric"
+                  required
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(formatWhatsApp(e.target.value))}
+                  placeholder="(48) 99999-9999"
+                  className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none focus:border-[color:var(--gold-light)] placeholder:text-foreground/20"
+                  style={{ border: "0.5px solid var(--gold)" }}
+                />
+                {errors.whatsapp && <span className="text-[13px] text-red-400/70">{errors.whatsapp}</span>}
+              </label>
+              <button
+                type="submit"
+                disabled={loading}
+                className="self-start mt-4 px-10 py-4 text-[13px] tracking-[0.2em] uppercase disabled:opacity-50"
+                style={{ background: "var(--gold)", color: "#111110" }}
+              >
+                {loading ? "Enviando…" : "Quero entender melhor!"}
+              </button>
+            </form>
           </div>
 
           <aside className="md:col-span-2 flex flex-col gap-8">
@@ -120,17 +175,9 @@ export default function Contato() {
 }
 
 function Field({
-  label,
-  name,
-  type = "text",
-  required,
-  error,
+  label, name, type = "text", required, error,
 }: {
-  label: string;
-  name: string;
-  type?: string;
-  required?: boolean;
-  error?: string;
+  label: string; name: string; type?: string; required?: boolean; error?: string;
 }) {
   return (
     <label className="flex flex-col gap-2">

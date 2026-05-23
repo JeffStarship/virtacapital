@@ -1,11 +1,17 @@
 import { Routes, Route, Link } from "react-router-dom";
+import { ScrollToTop } from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import ComoFunciona from "./pages/ComoFunciona";
 import Estrategias from "./pages/Estrategias";
 import ParaQuemE from "./pages/ParaQuemE";
 import Sobre from "./pages/Sobre";
 import Blog from "./pages/Blog";
+import ArtigoMedico from "./pages/ArtigoMedico";
+import ArtigoEmpresario from "./pages/ArtigoEmpresario";
+import ArtigoPatrimonio from "./pages/ArtigoPatrimonio";
 import Contato from "./pages/Contato";
+import Calculadora from "./pages/Calculadora";
+import Landing from "./pages/Landing";
 
 function NotFound() {
   return (
@@ -23,15 +29,23 @@ function NotFound() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/como-funciona" element={<ComoFunciona />} />
-      <Route path="/estrategias" element={<Estrategias />} />
-      <Route path="/para-quem-e" element={<ParaQuemE />} />
-      <Route path="/sobre" element={<Sobre />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/contato" element={<Contato />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/como-funciona" element={<ComoFunciona />} />
+        <Route path="/estrategias" element={<Estrategias />} />
+        <Route path="/para-quem-e" element={<ParaQuemE />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/medico" element={<ArtigoMedico />} />
+        <Route path="/blog/empresario" element={<ArtigoEmpresario />} />
+        <Route path="/blog/patrimonio-parado" element={<ArtigoPatrimonio />} />
+        <Route path="/contato" element={<Contato />} />
+        <Route path="/calculadora" element={<Calculadora />} />
+        <Route path="/alavancagem" element={<Landing />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }

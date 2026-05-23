@@ -4,11 +4,13 @@ import logo from "@/assets/virta-logo.svg";
 import { Menu, X } from "lucide-react";
 
 const links = [
+  { to: "/", label: "Início" },
   { to: "/como-funciona", label: "Como Funciona" },
   { to: "/estrategias", label: "Estratégias" },
   { to: "/para-quem-e", label: "Para Quem É" },
   { to: "/sobre", label: "Sobre" },
   { to: "/blog", label: "Matérias" },
+  { to: "/calculadora", label: "Calculadora" },
   { to: "/contato", label: "Contato" },
 ] as const;
 
