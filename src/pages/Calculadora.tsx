@@ -38,6 +38,7 @@ function CalcWidget() {
   const [renda, setRenda] = useState("");
   const [prazo, setPrazo] = useState(20);
   const [rentMensal, setRentMensal] = useState(0.75);
+  const [rentMensalStr, setRentMensalStr] = useState("0.75");
   const resultRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<null | {
     nominalRenda: number;
@@ -123,22 +124,55 @@ function CalcWidget() {
           {/* Rentabilidade com explicação */}
           <label className="flex flex-col gap-2">
             <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">
-              Quanto seu dinheiro rende por mês? (%)
+              Rentabilidade mensal dos seus investimentos (%)
             </span>
             <span className="text-[12px] text-foreground/30 -mt-1">
-              Ex: 0,75% ao mês ≈ CDI. Poupança ≈ 0,5%. Fundos conservadores ≈ 0,8%–1%.
+              Ex: 0,75% a.m. ≈ CDI. Poupança ≈ 0,5%. Fundos conservadores ≈ 0,8%–1%.
             </span>
             <div className="flex items-center" style={{ border: "0.5px solid var(--gold)" }}>
               <input
-                type="number"
-                value={rentMensal}
-                onChange={(e) => setRentMensal(parseFloat(e.target.value) || 0.75)}
-                step="0.05" min="0.1" max="5"
-                className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none w-full [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                type="text"
+                inputMode="decimal"
+                value={rentMensalStr}
+                onChange={(e) => {
+                  const raw = e.target.value.replace(",", ".");
+                  setRentMensalStr(e.target.value);
+                  const parsed = parseFloat(raw);
+                  if (!isNaN(parsed) && parsed >= 0.1 && parsed <= 5) {
+                    setRentMensal(parsed);
+                  }
+                }}
+                onBlur={() => {
+                  const parsed = parseFloat(rentMensalStr.replace(",", "."));
+                  const safe = isNaN(parsed) ? 0.75 : Math.min(5, Math.max(0.1, parsed));
+                  setRentMensal(safe);
+                  setRentMensalStr(String(safe));
+                }}
+                className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none w-full"
               />
-              <span className="px-4 py-3 text-[15px] text-foreground/40 border-l flex-shrink-0" style={{ borderLeft: "0.5px solid var(--gold)" }}>
+              <span className="px-4 py-3 text-[15px] text-foreground/40 flex-shrink-0" style={{ borderLeft: "0.5px solid var(--gold)" }}>
                 % a.m.
               </span>
+              <div className="flex flex-col" style={{ borderLeft: "0.5px solid var(--gold)" }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = Math.min(5, Math.round((rentMensal + 0.05) * 100) / 100);
+                    setRentMensal(next);
+                    setRentMensalStr(String(next));
+                  }}
+                  className="px-3 py-1 text-foreground/50 hover:text-[color:var(--gold)] transition-colors text-[11px] leading-none"
+                >▲</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = Math.max(0.1, Math.round((rentMensal - 0.05) * 100) / 100);
+                    setRentMensal(next);
+                    setRentMensalStr(String(next));
+                  }}
+                  className="px-3 py-1 text-foreground/50 hover:text-[color:var(--gold)] transition-colors text-[11px] leading-none"
+                >▼</button>
+              </div>
             </div>
           </label>
 
