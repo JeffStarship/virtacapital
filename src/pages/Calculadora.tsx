@@ -30,7 +30,7 @@ function fmt(n: number) {
   return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 }
 
-function CalcWidget() {
+function CalcWidget({ leadEmail }: { leadEmail: string }) {
   const SELIC = 9.2;
   const IPCA = 5.8;
   const realRate = ((1 + SELIC / 100) / (1 + IPCA / 100) - 1) * 100;
@@ -39,7 +39,6 @@ function CalcWidget() {
   const [prazo, setPrazo] = useState(20);
   const [rentMensal, setRentMensal] = useState(0.75);
   const [rentMensalStr, setRentMensalStr] = useState("0.75");
-  const [leadEmail, setLeadEmail] = useState("");
   const resultRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<null | {
     nominalRenda: number;
@@ -300,6 +299,7 @@ export default function Calculadora() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [whatsapp, setWhatsapp] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
   const calcRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -436,7 +436,7 @@ export default function Calculadora() {
               </div>
             </div>
           ) : (
-            <div ref={calcRef}><CalcWidget /></div>
+            <div ref={calcRef}><CalcWidget leadEmail={leadEmail} /></div>
           )}
         </div>
       </section>
