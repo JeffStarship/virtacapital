@@ -39,7 +39,7 @@ function CalcWidget() {
   const [prazo, setPrazo] = useState(20);
   const [rentMensal, setRentMensal] = useState(0.75);
   const [rentMensalStr, setRentMensalStr] = useState("0.75");
-  const [dealId, setDealId] = useState<number | null>(null);
+  const [leadEmail, setLeadEmail] = useState("");
   const resultRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<null | {
     nominalRenda: number;
@@ -62,12 +62,12 @@ function CalcWidget() {
     const poderPerdido = (1 - 1 / fatorInflacao) * 100;
     setResult({ nominalRenda, patrimonioAlvo, aportesMensal, fatorInflacao, poderPerdido });
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
-    if (dealId) {
+    if (leadEmail) {
       fetch("https://n8n.virtacapital.com.br/webhook/virta-calc-nota", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          deal_id: dealId,
+          email: leadEmail,
           renda_desejada: rendaNum,
           prazo_anos: prazo,
           rentabilidade_mensal: rentMensal,
@@ -317,14 +317,13 @@ export default function Calculadora() {
     }
     setErrors({});
     setLoading(true);
+    setLeadEmail(data.email);
     try {
-      const res = await fetch(WEBHOOK_URL, {
+      await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: data.nome, email: data.email, whatsapp: whatsappComZero, origem: "Calculadora", origem_id: 32, origem_secundaria: "" }),
       });
-      const json = await res.json().catch(() => ({}));
-      if (json.deal_id) setDealId(json.deal_id);
     } catch (_) {}
     setLoading(false);
     setUnlocked(true);
