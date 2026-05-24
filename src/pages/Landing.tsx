@@ -9,7 +9,7 @@ import canopusStar from "@/assets/canopus-star.png";
 const WEBHOOK_URL = "https://n8n.virtacapital.com.br/webhook/virta-lead";
 
 const formSchema = z.object({
-  nome: z.string().trim().min(2, "Informe seu nome"),
+  nome: z.string().trim().min(2, "Informe seu nome").refine((v) => v.trim().split(/\s+/).length >= 2, "Informe nome e sobrenome"),
   email: z.string().trim().email("Email inválido"),
   whatsapp: z.string().trim().min(10, "WhatsApp inválido").max(20),
 });
