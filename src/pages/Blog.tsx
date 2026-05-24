@@ -51,7 +51,7 @@ export default function Blog() {
                   Ótimo. Agora é com a gente.
                 </h2>
                 <p className="text-[15px] text-foreground/55 leading-relaxed">
-                  Everton vai analisar seu perfil e entrar em contato em até <strong className="text-foreground">1 dia útil</strong> para apresentar a estratégia mais adequada para o seu momento patrimonial.
+                  Nossa equipe vai analisar seu perfil e entrar em contato em até <strong className="text-foreground">1 dia útil</strong> para apresentar a estratégia mais adequada para o seu momento patrimonial.
                 </p>
                 <p className="mt-4 text-[14px] text-foreground/40 leading-relaxed">
                   Enquanto isso, você não precisa esperar no escuro. Preparamos conteúdo direto sobre patrimônio, alavancagem e os erros que custam mais caro — para você chegar à conversa já com o contexto certo.
