@@ -78,14 +78,14 @@ export default function Landing() {
           {/* Headline */}
           <div>
             <p className="text-[11px] tracking-[0.35em] uppercase mb-5" style={{ color: "var(--gold)" }}>
-              Alavancagem Patrimonial · Consórcio Canopus
+              Estratégia Patrimonial · Virta Capital
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-light leading-[1.1] mb-6" style={{ fontFamily: "Cormorant Garamond, serif" }}>
-              Você construiu patrimônio.<br />
-              <em>Agora precisa fazer esse patrimônio trabalhar por você.</em>
+              Existe uma estratégia que investidores imobiliários usam para crescer patrimônio sem vender nada.<br />
+              <em>A maioria nunca ouviu falar.</em>
             </h1>
             <p className="text-[15px] text-foreground/55 leading-relaxed">
-              A estratégia usada por investidores imobiliários para transformar imóveis e capital parado em liquidez inteligente — sem vender patrimônio, sem depender da bolsa, sem sair do mercado imobiliário.
+              Não é bolsa. Não é crypto. Não é vender imóvel. É uma estrutura regulamentada pelo Banco Central que transforma patrimônio parado em capacidade real de expansão — com custo abaixo da inflação e sem sair do mercado imobiliário.
             </p>
           </div>
 
@@ -101,10 +101,10 @@ export default function Landing() {
             ) : (
               <>
                 <p className="text-[11px] tracking-[0.3em] uppercase mb-2" style={{ color: "var(--gold)" }}>
-                  Quero entender a estratégia
+                  Quero entender como funciona
                 </p>
                 <p className="text-[13px] text-foreground/40 mb-6 leading-relaxed">
-                  Coloque seu contato corretamente para receber o material no seu WhatsApp.
+                  Deixa seu contato e te explicamos a estratégia completa — sem enrolação.
                 </p>
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
                   <label className="flex flex-col gap-2">
@@ -215,7 +215,7 @@ export default function Landing() {
       <footer className="px-6 lg:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <img src={canopusStar} alt="Canopus" className="h-6 w-6 opacity-60" />
-          <span className="text-[11px] text-foreground/30 tracking-[0.15em] uppercase">Parceiro Canopus · Regulamentado pelo Banco Central</span>
+          <span className="text-[11px] text-foreground/30 tracking-[0.15em] uppercase">Regulamentado pelo Banco Central · Virta Capital</span>
         </div>
         <Link to="/" className="text-[11px] text-foreground/30 hover:text-foreground/60 transition-colors">virtacapital.com.br</Link>
       </footer>

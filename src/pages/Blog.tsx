@@ -107,7 +107,7 @@ export default function Blog() {
               <div
                 className="h-48 md:h-auto min-h-[220px] relative overflow-hidden"
               >
-                <img src={featured.image} alt={featured.title} className="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:opacity-65 transition-opacity" />
+                <img src={featured.image} alt={featured.title} className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-85 transition-opacity" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(17,17,16,0.1) 0%, rgba(17,17,16,0.6) 100%)" }} />
                 <div
                   className="absolute bottom-4 left-4 text-[10px] tracking-[0.3em] uppercase px-2 py-1"
@@ -153,7 +153,7 @@ export default function Blog() {
               >
                 {/* Painel visual */}
                 <div className="h-40 relative overflow-hidden">
-                  <img src={art.image} alt={art.title} className="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:opacity-65 transition-opacity" />
+                  <img src={art.image} alt={art.title} className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-85 transition-opacity" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(17,17,16,0) 40%, rgba(17,17,16,0.7) 100%)" }} />
                 </div>
                 {/* Conteúdo */}
