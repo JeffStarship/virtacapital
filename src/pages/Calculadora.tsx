@@ -61,7 +61,9 @@ function CalcWidget({ leadEmail }: { leadEmail: string }) {
     const poderPerdido = (1 - 1 / fatorInflacao) * 100;
     setResult({ nominalRenda, patrimonioAlvo, aportesMensal, fatorInflacao, poderPerdido });
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    console.log("[Virta] leadEmail no momento do cálculo:", leadEmail);
     if (leadEmail) {
+      console.log("[Virta] Disparando webhook virta-calc-nota...");
       fetch("https://n8n.virtacapital.com.br/webhook/virta-calc-nota", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
