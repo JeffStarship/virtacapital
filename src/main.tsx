@@ -7,6 +7,8 @@ import "./styles.css";
 
 const queryClient = new QueryClient();
 
+document.documentElement.dataset.build = "20260524a";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
