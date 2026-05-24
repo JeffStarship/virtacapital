@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { Layout, PageHero } from "@/components/Layout";
 import { usePageMeta } from "@/lib/seo";
@@ -19,6 +19,13 @@ function formatWhatsApp(value: string): string {
   return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
 }
 
+function formatRenda(value: string): string {
+  const digits = value.replace(/\D/g, "");
+  if (!digits) return "";
+  const num = parseInt(digits, 10);
+  return num.toLocaleString("pt-BR");
+}
+
 function fmt(n: number) {
   return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 }
@@ -29,86 +36,126 @@ function CalcWidget() {
   const realRate = ((1 + SELIC / 100) / (1 + IPCA / 100) - 1) * 100;
 
   const [renda, setRenda] = useState("");
-  const [prazo, setPrazo] = useState("");
-  const [rentMensal, setRentMensal] = useState("0.75");
+  const [prazo, setPrazo] = useState(20);
+  const [rentMensal, setRentMensal] = useState(0.75);
+  const resultRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<null | {
     nominalRenda: number;
     patrimonioAlvo: number;
     aportesMensal: number;
     fatorInflacao: number;
     poderPerdido: number;
-    retiradaMensal: number;
   }>(null);
 
   const calcular = () => {
-    const rendaNum = parseFloat(renda.replace(/\D/g, "")) || 0;
-    const prazoNum = parseInt(prazo) || 0;
-    const rentNum = parseFloat(rentMensal) / 100;
-    if (!rendaNum || !prazoNum || !rentNum) return;
-
-    const meses = prazoNum * 12;
-    const taxaAnualReal = realRate / 100;
-    const fatorInflacao = Math.pow(1 + IPCA / 100, prazoNum);
+    const rendaNum = parseInt(renda.replace(/\D/g, ""), 10) || 0;
+    if (!rendaNum || !prazo || !rentMensal) return;
+    const meses = prazo * 12;
+    const fatorInflacao = Math.pow(1 + IPCA / 100, prazo);
     const nominalRenda = rendaNum * fatorInflacao;
-    const taxaRetirada = taxaAnualReal / 12;
+    const taxaRetirada = (realRate / 100) / 12;
     const patrimonioAlvo = taxaRetirada > 0 ? nominalRenda / taxaRetirada : nominalRenda * 300;
+    const rentNum = rentMensal / 100;
     const aportesMensal = (patrimonioAlvo * rentNum) / (Math.pow(1 + rentNum, meses) - 1);
     const poderPerdido = (1 - 1 / fatorInflacao) * 100;
-    const retiradaMensal = nominalRenda;
-
-    setResult({ nominalRenda, patrimonioAlvo, aportesMensal, fatorInflacao, poderPerdido, retiradaMensal });
+    setResult({ nominalRenda, patrimonioAlvo, aportesMensal, fatorInflacao, poderPerdido });
+    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   };
 
   return (
     <div className="flex flex-col gap-10">
       {/* Entradas */}
       <div className="p-8 md:p-10" style={{ border: "0.5px solid var(--border-gold)" }}>
-        <p className="text-[11px] tracking-[0.3em] uppercase mb-6" style={{ color: "var(--gold)" }}>
+        <p className="text-[11px] tracking-[0.3em] uppercase mb-8" style={{ color: "var(--gold)" }}>
           01 — Defina seu objetivo
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          {/* Renda com prefixo R$ */}
           <label className="flex flex-col gap-2">
-            <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">Renda mensal desejada na aposentadoria (R$)</span>
-            <input
-              type="text"
-              inputMode="numeric"
-              value={renda}
-              onChange={(e) => setRenda(e.target.value.replace(/\D/g, ""))}
-              placeholder="10.000"
-              className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none placeholder:text-foreground/20"
-              style={{ border: "0.5px solid var(--gold)" }}
-            />
+            <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">
+              Renda mensal que quer ter na aposentadoria
+            </span>
+            <div className="flex items-center" style={{ border: "0.5px solid var(--gold)" }}>
+              <span className="px-4 py-3 text-[15px] text-foreground/40 border-r flex-shrink-0" style={{ borderRight: "0.5px solid var(--gold)" }}>
+                R$
+              </span>
+              <input
+                type="text"
+                inputMode="numeric"
+                value={renda}
+                onChange={(e) => setRenda(formatRenda(e.target.value))}
+                placeholder="10.000"
+                className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none w-full placeholder:text-foreground/20"
+              />
+            </div>
           </label>
+
+          {/* Prazo com stepper customizado */}
           <label className="flex flex-col gap-2">
-            <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">Quantos anos até se aposentar?</span>
-            <input
-              type="number"
-              value={prazo}
-              onChange={(e) => setPrazo(e.target.value)}
-              placeholder="20"
-              min="1" max="50"
-              className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none placeholder:text-foreground/20"
-              style={{ border: "0.5px solid var(--gold)" }}
-            />
+            <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">
+              Quantos anos até se aposentar?
+            </span>
+            <div className="flex items-center" style={{ border: "0.5px solid var(--gold)" }}>
+              <input
+                type="number"
+                value={prazo}
+                onChange={(e) => setPrazo(Math.max(1, Math.min(50, parseInt(e.target.value) || 1)))}
+                min="1" max="50"
+                className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none w-full [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              />
+              <div className="flex flex-col border-l flex-shrink-0" style={{ borderLeft: "0.5px solid var(--gold)" }}>
+                <button
+                  type="button"
+                  onClick={() => setPrazo((p) => Math.min(50, p + 1))}
+                  className="px-3 py-1 text-foreground/50 hover:text-[color:var(--gold)] transition-colors text-[11px] leading-none border-b"
+                  style={{ borderBottom: "0.5px solid var(--gold)" }}
+                >▲</button>
+                <button
+                  type="button"
+                  onClick={() => setPrazo((p) => Math.max(1, p - 1))}
+                  className="px-3 py-1 text-foreground/50 hover:text-[color:var(--gold)] transition-colors text-[11px] leading-none"
+                >▼</button>
+              </div>
+            </div>
           </label>
+
+          {/* Rentabilidade com explicação */}
           <label className="flex flex-col gap-2">
-            <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">Rentabilidade mensal estimada (%)</span>
-            <input
-              type="number"
-              value={rentMensal}
-              onChange={(e) => setRentMensal(e.target.value)}
-              step="0.01" min="0.1" max="5"
-              className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none"
-              style={{ border: "0.5px solid var(--gold)" }}
-            />
+            <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">
+              Quanto seu dinheiro rende por mês? (%)
+            </span>
+            <span className="text-[12px] text-foreground/30 -mt-1">
+              Ex: 0,75% ao mês ≈ CDI. Poupança ≈ 0,5%. Fundos conservadores ≈ 0,8%–1%.
+            </span>
+            <div className="flex items-center" style={{ border: "0.5px solid var(--gold)" }}>
+              <input
+                type="number"
+                value={rentMensal}
+                onChange={(e) => setRentMensal(parseFloat(e.target.value) || 0.75)}
+                step="0.05" min="0.1" max="5"
+                className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none w-full [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              />
+              <span className="px-4 py-3 text-[15px] text-foreground/40 border-l flex-shrink-0" style={{ borderLeft: "0.5px solid var(--gold)" }}>
+                % a.m.
+              </span>
+            </div>
           </label>
+
+          {/* Info inflação */}
           <div className="flex flex-col gap-2 justify-end">
-            <div className="px-4 py-3 text-[13px] text-foreground/45" style={{ border: "0.5px solid var(--border-gold)" }}>
-              Selic {SELIC}% a.a. ÷ IPCA {IPCA}% a.a. = <span style={{ color: "var(--gold)" }}>{realRate.toFixed(2)}% real</span>
-              <div className="text-[11px] mt-1 text-foreground/30">Médias dos últimos 15 anos (2010–2024)</div>
+            <div className="px-5 py-4 text-[13px]" style={{ border: "0.5px solid var(--border-gold)", background: "rgba(155,126,78,0.04)" }}>
+              <div className="text-foreground/50 mb-1">Inflação usada no cálculo</div>
+              <div style={{ color: "var(--gold)" }} className="font-display text-lg">
+                {IPCA}% a.a. (IPCA histórico)
+              </div>
+              <div className="text-[11px] mt-2 text-foreground/30 leading-relaxed">
+                Média real dos últimos 15 anos no Brasil. Usada para corrigir o quanto você vai precisar no futuro.
+              </div>
             </div>
           </div>
         </div>
+
         <button
           onClick={calcular}
           className="mt-8 px-10 py-4 text-[13px] tracking-[0.2em] uppercase"
@@ -120,21 +167,48 @@ function CalcWidget() {
 
       {/* Resultados */}
       {result && (
-        <div className="p-8 md:p-10 flex flex-col gap-8" style={{ border: "0.5px solid var(--border-gold)" }}>
-          <p className="text-[11px] tracking-[0.3em] uppercase" style={{ color: "var(--gold)" }}>
-            02 — Seu número real
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Metric label="Renda necessária na aposentadoria (nominal)" value={fmt(result.nominalRenda)} sub="corrigida pela inflação" />
-            <Metric label="Patrimônio alvo" value={fmt(result.patrimonioAlvo)} sub="necessário para gerar sua renda com segurança" highlight />
-            <Metric label="Aporte mensal necessário" value={fmt(result.aportesMensal)} sub="partindo do zero, para atingir o patrimônio alvo" />
-            <Metric label="Fator de correção inflacionária" value={`${result.fatorInflacao.toFixed(2)}×`} sub={`os preços serão ${result.fatorInflacao.toFixed(2)}× mais altos no futuro`} />
-            <Metric label="Poder de compra perdido" value={`${result.poderPerdido.toFixed(1)}%`} sub="do seu dinheiro some em valor real se não corrigir pela inflação" />
-            <Metric label="Retirada mensal equivalente" value={fmt(result.retiradaMensal)} sub="renda corrigida pela inflação no futuro" />
+        <div ref={resultRef} className="flex flex-col gap-0" style={{ border: "0.5px solid var(--border-gold)" }}>
+
+          {/* Destaque principal — impacto da inflação */}
+          <div className="p-8 md:p-10" style={{ borderBottom: "0.5px solid var(--border-gold)", background: "rgba(155,126,78,0.04)" }}>
+            <p className="text-[11px] tracking-[0.3em] uppercase mb-6" style={{ color: "var(--gold)" }}>
+              02 — Seu número real
+            </p>
+            <p className="text-[13px] text-foreground/40 mb-3 tracking-[0.1em] uppercase">
+              Para manter R$ {parseInt(renda.replace(/\D/g, "")).toLocaleString("pt-BR")} de poder de compra, você vai precisar receber
+            </p>
+            <div className="font-display text-5xl md:text-6xl font-light mb-3" style={{ color: "var(--gold)" }}>
+              {fmt(result.nominalRenda)}
+            </div>
+            <p className="text-[14px] text-foreground/45">
+              por mês daqui a {prazo} anos — porque a inflação vai corroer{" "}
+              <strong className="text-foreground">{result.poderPerdido.toFixed(0)}%</strong> do seu poder de compra nesse período.
+            </p>
           </div>
-          <div className="pt-6" style={{ borderTop: "0.5px solid var(--border-gold)" }}>
-            <p className="text-[13px] text-foreground/40 leading-relaxed">
-              Cálculos baseados em projeções históricas. Selic {SELIC}% a.a. e IPCA {IPCA}% a.a. são médias de 2010–2024. Não constituem garantia de rendimento futuro.
+
+          {/* Grid de métricas */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+            <MetricBox
+              label="Patrimônio que você precisa acumular"
+              value={fmt(result.patrimonioAlvo)}
+              sub="Para gerar sua renda com segurança, sem depender de trabalho"
+              highlight
+            />
+            <MetricBox
+              label="Aporte mensal necessário"
+              value={fmt(result.aportesMensal)}
+              sub="Partindo do zero hoje, aplicando todo mês com consistência"
+            />
+            <MetricBox
+              label="Poder de compra perdido"
+              value={`${result.poderPerdido.toFixed(0)}%`}
+              sub={`Seu dinheiro vale ${result.poderPerdido.toFixed(0)}% menos em termos reais daqui a ${prazo} anos`}
+            />
+          </div>
+
+          <div className="px-8 py-4" style={{ borderTop: "0.5px solid var(--border-gold)" }}>
+            <p className="text-[11px] text-foreground/25 leading-relaxed">
+              Projeções baseadas em médias históricas. Selic {SELIC}% a.a. e IPCA {IPCA}% a.a. (2010–2024). Não constituem garantia de rendimento futuro.
             </p>
           </div>
         </div>
@@ -160,25 +234,26 @@ function CalcWidget() {
   );
 }
 
-function Metric({ label, value, sub, highlight }: { label: string; value: string; sub: string; highlight?: boolean }) {
+function MetricBox({ label, value, sub, highlight }: { label: string; value: string; sub: string; highlight?: boolean }) {
   return (
-    <div className="flex flex-col gap-1">
-      <span className="text-[11px] tracking-[0.25em] uppercase text-foreground/35">{label}</span>
-      <span className={`font-display text-2xl md:text-3xl font-light ${highlight ? "" : ""}`} style={highlight ? { color: "var(--gold)" } : undefined}>
+    <div className="p-6 md:p-8 flex flex-col gap-2" style={{ borderRight: "0.5px solid var(--border-gold)", borderBottom: "0.5px solid var(--border-gold)" }}>
+      <span className="text-[11px] tracking-[0.2em] uppercase text-foreground/35">{label}</span>
+      <span className="font-display text-2xl md:text-3xl font-light" style={highlight ? { color: "var(--gold-light)" } : undefined}>
         {value}
       </span>
-      <span className="text-[12px] text-foreground/35">{sub}</span>
+      <span className="text-[12px] text-foreground/35 leading-relaxed">{sub}</span>
     </div>
   );
 }
 
 export default function Calculadora() {
-  usePageMeta("Calculadora de Independência Financeira — Virta Capital", "Descubra o número real que separa você da liberdade financeira.");
+  usePageMeta("Calculadora de Renda Passiva — Virta Capital", "Descubra o número real que separa você da liberdade financeira.");
 
   const [unlocked, setUnlocked] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [whatsapp, setWhatsapp] = useState("");
+  const calcRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -203,12 +278,15 @@ export default function Calculadora() {
     } catch (_) {}
     setLoading(false);
     setUnlocked(true);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 50);
   };
 
   return (
     <Layout>
       <PageHero
-        eyebrow="Calculadora"
+        eyebrow="Calculadora de Renda Passiva"
         title="Quanto você vai realmente precisar para se aposentar?"
         subtitle="A inflação corrói silenciosamente seu poder de compra. Descubra o número real que separa você da independência financeira."
       />
@@ -253,7 +331,8 @@ export default function Calculadora() {
                   Preencha seus dados abaixo para liberar a calculadora. Sem spam, sem compromisso.
                 </span>
               </div>
-              {/* Instruções */}
+
+              {/* Steps */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
                   { n: "1", t: "Informe seus dados", d: "Rápido e seguro. Seus dados não serão compartilhados." },
@@ -308,7 +387,7 @@ export default function Calculadora() {
               </div>
             </div>
           ) : (
-            <CalcWidget />
+            <div ref={calcRef}><CalcWidget /></div>
           )}
         </div>
       </section>

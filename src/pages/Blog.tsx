@@ -40,16 +40,48 @@ export default function Blog() {
   return (
     <Layout>
       {obrigado && (
-        <div
-          className="px-6 lg:px-10 py-6 text-center"
-          style={{ background: "rgba(155,126,78,0.08)", borderBottom: "0.5px solid var(--border-gold)" }}
-        >
-          <p className="text-[13px] tracking-[0.2em] uppercase" style={{ color: "var(--gold)" }}>
-            Mensagem recebida
-          </p>
-          <p className="mt-2 text-[15px] text-foreground/70">
-            Recebemos seus dados. Everton entrará em contato em até 1 dia útil.
-          </p>
+        <div style={{ background: "rgba(155,126,78,0.06)", borderBottom: "0.5px solid var(--border-gold)" }}>
+          <div className="mx-auto max-w-4xl px-6 lg:px-10 py-12 md:py-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+              <div>
+                <p className="text-[11px] tracking-[0.35em] uppercase mb-4" style={{ color: "var(--gold)" }}>
+                  Recebemos seus dados
+                </p>
+                <h2 className="font-display text-3xl md:text-4xl font-light leading-snug mb-4">
+                  Ótimo. Agora é com a gente.
+                </h2>
+                <p className="text-[15px] text-foreground/55 leading-relaxed">
+                  Everton vai analisar seu perfil e entrar em contato em até <strong className="text-foreground">1 dia útil</strong> para apresentar a estratégia mais adequada para o seu momento patrimonial.
+                </p>
+                <p className="mt-4 text-[14px] text-foreground/40 leading-relaxed">
+                  Enquanto isso, você não precisa esperar no escuro. Preparamos conteúdo direto sobre patrimônio, alavancagem e os erros que custam mais caro — para você chegar à conversa já com o contexto certo.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] tracking-[0.3em] uppercase mb-3 text-foreground/35">
+                  Recomendamos começar por
+                </p>
+                {articles.map((a) => (
+                  <Link
+                    key={a.slug}
+                    to={a.slug}
+                    className="group flex items-start gap-4 py-4 transition-opacity hover:opacity-80"
+                    style={{ borderBottom: "0.5px solid var(--border-gold)" }}
+                  >
+                    <div className="w-1 h-1 rounded-full mt-2 flex-shrink-0" style={{ background: "var(--gold)" }} />
+                    <div>
+                      <p className="text-[10px] tracking-[0.25em] uppercase mb-1" style={{ color: "var(--gold)" }}>
+                        {a.tag}
+                      </p>
+                      <p className="text-[14px] text-foreground/70 leading-snug group-hover:text-foreground transition-colors">
+                        {a.title}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
