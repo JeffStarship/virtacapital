@@ -112,14 +112,14 @@ export default function Landing() {
                     <input name="nome" type="text" required
                       className="bg-transparent px-4 py-3 text-[15px] outline-none text-foreground"
                       style={{ border: "0.5px solid rgba(155,126,78,0.6)" }} />
-                    {errors.nome && <span className="text-[12px] text-red-400/70">{errors.nome}</span>}
+                    {errors.nome && <span className="text-[12px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.nome}</span>}
                   </label>
                   <label className="flex flex-col gap-2">
                     <span className="text-[11px] tracking-[0.3em] uppercase text-foreground/40">Email</span>
                     <input name="email" type="email" required
                       className="bg-transparent px-4 py-3 text-[15px] outline-none text-foreground"
                       style={{ border: "0.5px solid rgba(155,126,78,0.6)" }} />
-                    {errors.email && <span className="text-[12px] text-red-400/70">{errors.email}</span>}
+                    {errors.email && <span className="text-[12px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.email}</span>}
                   </label>
                   <label className="flex flex-col gap-2">
                     <span className="text-[11px] tracking-[0.3em] uppercase text-foreground/40">WhatsApp</span>
@@ -128,7 +128,7 @@ export default function Landing() {
                       placeholder="(48) 99999-9999"
                       className="bg-transparent px-4 py-3 text-[15px] outline-none text-foreground placeholder:text-foreground/20"
                       style={{ border: "0.5px solid rgba(155,126,78,0.6)" }} />
-                    {errors.whatsapp && <span className="text-[12px] text-red-400/70">{errors.whatsapp}</span>}
+                    {errors.whatsapp && <span className="text-[12px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.whatsapp}</span>}
                   </label>
                   <button type="submit" disabled={loading}
                     className="mt-2 py-4 text-[12px] tracking-[0.2em] uppercase disabled:opacity-50"

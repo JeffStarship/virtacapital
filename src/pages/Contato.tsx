@@ -50,6 +50,7 @@ export default function Contato() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const rawWhatsapp = whatsapp.replace(/\D/g, "");
+    const whatsappComZero = rawWhatsapp.startsWith("0") ? rawWhatsapp : "0" + rawWhatsapp;
     const data = {
       nome: String(fd.get("nome") || ""),
       email: String(fd.get("email") || ""),
@@ -71,7 +72,7 @@ export default function Contato() {
         body: JSON.stringify({
           nome: data.nome,
           email: data.email,
-          whatsapp: rawWhatsapp,
+          whatsapp: whatsappComZero,
           origem: "Conversar",
           origem_id: origemId,
           origem_secundaria: origemSecundaria,
@@ -120,7 +121,7 @@ export default function Contato() {
                   className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none focus:border-[color:var(--gold-light)] placeholder:text-foreground/20"
                   style={{ border: "0.5px solid var(--gold)" }}
                 />
-                {errors.whatsapp && <span className="text-[13px] text-red-400/70">{errors.whatsapp}</span>}
+                {errors.whatsapp && <span className="text-[13px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.whatsapp}</span>}
               </label>
               <button
                 type="submit"
@@ -189,7 +190,7 @@ function Field({
         className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none focus:border-[color:var(--gold-light)]"
         style={{ border: "0.5px solid var(--gold)" }}
       />
-      {error && <span className="text-[13px] text-red-400/70">{error}</span>}
+      {error && <span className="text-[13px]" style={{ color: "rgba(155,126,78,0.8)" }}>{error}</span>}
     </label>
   );
 }

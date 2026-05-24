@@ -306,6 +306,7 @@ export default function Calculadora() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const rawWhatsapp = whatsapp.replace(/\D/g, "");
+    const whatsappComZero = rawWhatsapp.startsWith("0") ? rawWhatsapp : "0" + rawWhatsapp;
     const data = { nome: String(fd.get("nome") || ""), email: String(fd.get("email") || ""), whatsapp: rawWhatsapp };
     const result = formSchema.safeParse({ ...data, whatsapp: rawWhatsapp });
     if (!result.success) {
@@ -320,7 +321,7 @@ export default function Calculadora() {
       const res = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: data.nome, email: data.email, whatsapp: rawWhatsapp, origem: "Calculadora", origem_id: 32, origem_secundaria: "" }),
+        body: JSON.stringify({ nome: data.nome, email: data.email, whatsapp: whatsappComZero, origem: "Calculadora", origem_id: 32, origem_secundaria: "" }),
       });
       const json = await res.json().catch(() => ({}));
       if (json.deal_id) setDealId(json.deal_id);
@@ -404,18 +405,18 @@ export default function Calculadora() {
                 <form onSubmit={onSubmit} className="flex flex-col gap-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <label className="flex flex-col gap-2">
-                      <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">Nome</span>
+                      <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">Nome completo</span>
                       <input name="nome" type="text" required
                         className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none"
                         style={{ border: "0.5px solid var(--gold)" }} />
-                      {errors.nome && <span className="text-[12px] text-red-400/70">{errors.nome}</span>}
+                      {errors.nome && <span className="text-[12px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.nome}</span>}
                     </label>
                     <label className="flex flex-col gap-2">
                       <span className="text-[12px] tracking-[0.25em] uppercase text-foreground/45">Email</span>
                       <input name="email" type="email" required
                         className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none"
                         style={{ border: "0.5px solid var(--gold)" }} />
-                      {errors.email && <span className="text-[12px] text-red-400/70">{errors.email}</span>}
+                      {errors.email && <span className="text-[12px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.email}</span>}
                     </label>
                   </div>
                   <label className="flex flex-col gap-2">
@@ -425,7 +426,7 @@ export default function Calculadora() {
                       placeholder="(48) 99999-9999"
                       className="bg-transparent px-4 py-3 text-[16px] text-foreground outline-none placeholder:text-foreground/20"
                       style={{ border: "0.5px solid var(--gold)" }} />
-                    {errors.whatsapp && <span className="text-[12px] text-red-400/70">{errors.whatsapp}</span>}
+                    {errors.whatsapp && <span className="text-[12px]" style={{ color: "rgba(155,126,78,0.8)" }}>{errors.whatsapp}</span>}
                   </label>
                   <button type="submit" disabled={loading}
                     className="self-start px-10 py-4 text-[13px] tracking-[0.2em] uppercase disabled:opacity-50"
