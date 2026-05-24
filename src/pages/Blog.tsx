@@ -10,6 +10,7 @@ const articles = [
     excerpt: "Por que ativos quitados e dinheiro 'seguro' podem estar custando mais do que parecem.",
     readTime: "4 min",
     featured: true,
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80&auto=format&fit=crop",
   },
   {
     slug: "/blog/medico",
@@ -18,6 +19,7 @@ const articles = [
     excerpt: "Uma análise honesta sobre a jornada financeira do médico brasileiro e o que é possível fazer diferente.",
     readTime: "4 min",
     featured: false,
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format&fit=crop",
   },
   {
     slug: "/blog/empresario",
@@ -26,6 +28,7 @@ const articles = [
     excerpt: "Por que crescimento de negócio nem sempre vira patrimônio pessoal — e o que fazer a respeito.",
     readTime: "4 min",
     featured: false,
+    image: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=800&q=80&auto=format&fit=crop",
   },
 ];
 
@@ -103,17 +106,12 @@ export default function Blog() {
               {/* Painel visual */}
               <div
                 className="h-48 md:h-auto min-h-[220px] relative overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #1a1a18 0%, #0d0d0c 100%)" }}
               >
-                <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                  <svg width="180" height="80" viewBox="0 0 180 80" fill="none">
-                    <path d="M10 50C25 50 30 15 45 15C60 15 65 50 80 50C95 50 100 32 115 32H170" stroke="#E8E0D0" strokeWidth="2.5" strokeLinecap="round"/>
-                    <circle cx="170" cy="32" r="5" fill="#B87333"/>
-                  </svg>
-                </div>
+                <img src={featured.image} alt={featured.title} className="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:opacity-65 transition-opacity" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(17,17,16,0.1) 0%, rgba(17,17,16,0.6) 100%)" }} />
                 <div
                   className="absolute bottom-4 left-4 text-[10px] tracking-[0.3em] uppercase px-2 py-1"
-                  style={{ color: "var(--gold)", border: "0.5px solid var(--border-gold)" }}
+                  style={{ color: "var(--gold)", border: "0.5px solid var(--border-gold)", background: "rgba(17,17,16,0.6)" }}
                 >
                   Destaque
                 </div>
@@ -154,16 +152,9 @@ export default function Blog() {
                 style={{ border: "0.5px solid var(--border-gold)" }}
               >
                 {/* Painel visual */}
-                <div
-                  className="h-36 relative overflow-hidden"
-                  style={{ background: "linear-gradient(135deg, #1a1a18 0%, #0d0d0c 100%)" }}
-                >
-                  <div className="absolute inset-0 flex items-center justify-center opacity-8">
-                    <svg width="120" height="55" viewBox="0 0 120 55" fill="none">
-                      <path d="M8 35C18 35 22 10 30 10C38 10 42 35 52 35C62 35 66 22 74 22H112" stroke="#E8E0D0" strokeWidth="1.5" strokeLinecap="round"/>
-                      <circle cx="112" cy="22" r="3.5" fill="#B87333"/>
-                    </svg>
-                  </div>
+                <div className="h-40 relative overflow-hidden">
+                  <img src={art.image} alt={art.title} className="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:opacity-65 transition-opacity" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(17,17,16,0) 40%, rgba(17,17,16,0.7) 100%)" }} />
                 </div>
                 {/* Conteúdo */}
                 <div className="p-6 flex flex-col flex-1">

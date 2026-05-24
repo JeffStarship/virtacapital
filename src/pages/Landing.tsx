@@ -9,6 +9,7 @@ import canopusStar from "@/assets/canopus-star.png";
 const WEBHOOK_URL = "https://n8n.virtacapital.com.br/webhook/virta-lead";
 
 const formSchema = z.object({
+  nome: z.string().trim().min(2, "Informe seu nome"),
   email: z.string().trim().email("Email inválido"),
   whatsapp: z.string().trim().min(10, "WhatsApp inválido").max(20),
 });
@@ -38,7 +39,7 @@ export default function Landing() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const rawWhatsapp = whatsapp.replace(/\D/g, "");
-    const data = { email: String(fd.get("email") || ""), whatsapp: rawWhatsapp };
+    const data = { nome: String(fd.get("nome") || ""), email: String(fd.get("email") || ""), whatsapp: rawWhatsapp };
     const result = formSchema.safeParse({ ...data, whatsapp: rawWhatsapp });
     if (!result.success) {
       const errs: Record<string, string> = {};
@@ -52,7 +53,7 @@ export default function Landing() {
       await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: "", email: data.email, whatsapp: rawWhatsapp, origem: "Landing Page", origem_id: 34, origem_secundaria: "" }),
+        body: JSON.stringify({ nome: data.nome, email: data.email, whatsapp: rawWhatsapp, origem: "Landing Page", origem_id: 34, origem_secundaria: "" }),
       });
     } catch (_) {}
     setLoading(false);
@@ -106,6 +107,13 @@ export default function Landing() {
                   Coloque seu contato corretamente para receber o material no seu WhatsApp.
                 </p>
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
+                  <label className="flex flex-col gap-2">
+                    <span className="text-[11px] tracking-[0.3em] uppercase text-foreground/40">Nome</span>
+                    <input name="nome" type="text" required
+                      className="bg-transparent px-4 py-3 text-[15px] outline-none text-foreground"
+                      style={{ border: "0.5px solid rgba(155,126,78,0.6)" }} />
+                    {errors.nome && <span className="text-[12px] text-red-400/70">{errors.nome}</span>}
+                  </label>
                   <label className="flex flex-col gap-2">
                     <span className="text-[11px] tracking-[0.3em] uppercase text-foreground/40">Email</span>
                     <input name="email" type="email" required
