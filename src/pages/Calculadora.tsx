@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { z } from "zod";
 import { Layout, PageHero } from "@/components/Layout";
 import { usePageMeta } from "@/lib/seo";
@@ -295,11 +296,14 @@ function MetricBox({ label, value, sub, highlight }: { label: string; value: str
 export default function Calculadora() {
   usePageMeta("Calculadora de Renda Passiva — Virta Capital", "Descubra o número real que separa você da liberdade financeira.");
 
-  const [unlocked, setUnlocked] = useState(false);
+  const location = useLocation();
+  const prefill = (location.state || {}) as { unlocked?: boolean; email?: string };
+
+  const [unlocked, setUnlocked] = useState(!!prefill.unlocked);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [whatsapp, setWhatsapp] = useState("");
-  const [leadEmail, setLeadEmail] = useState("");
+  const [leadEmail, setLeadEmail] = useState(prefill.email || "");
   const calcRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

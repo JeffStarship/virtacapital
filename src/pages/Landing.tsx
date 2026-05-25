@@ -53,7 +53,7 @@ export default function Landing() {
       await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: data.nome, email: data.email, whatsapp: rawWhatsapp, origem: "Landing Page", origem_id: 34, origem_secundaria: "" }),
+        body: JSON.stringify({ nome: data.nome, email: data.email, whatsapp: rawWhatsapp, origem: "Landing Page", origem_id: 34, origem_secundaria: "Alavancagem" }),
       });
     } catch (_) {}
     setLoading(false);
@@ -140,6 +140,45 @@ export default function Landing() {
               </>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* TRÊS PERFIS */}
+      <section className="px-6 lg:px-10 py-16 md:py-20" style={{ borderBottom: "0.5px solid rgba(180,150,90,0.12)" }}>
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] tracking-[0.35em] uppercase mb-10" style={{ color: "var(--gold)" }}>
+            Faz diferença para quem já chegou longe
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { t: "O empresário", d: "Tem patrimônio preso na operação e nos imóveis. Quer expandir sem descapitalizar a empresa nem vender ativos que valorizam." },
+              { t: "O médico", d: "Fatura bem, mas a renda depende da própria agenda. Busca transformar rendimento de hoje em patrimônio que rende amanhã." },
+              { t: "O profissional liberal", d: "Construiu reserva sólida, mas vê o capital render pouco. Quer fazer o dinheiro trabalhar sem se expor à volatilidade do mercado." },
+            ].map((p) => (
+              <div key={p.t} className="p-7 flex flex-col gap-4" style={{ border: "0.5px solid rgba(180,150,90,0.12)" }}>
+                <h3 className="font-display text-2xl font-light" style={{ fontFamily: "Cormorant Garamond, serif" }}>{p.t}</h3>
+                <p className="text-[14px] text-foreground/50 leading-relaxed">{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* O CUSTO DE NÃO AGIR */}
+      <section className="px-6 lg:px-10 py-16 md:py-20" style={{ borderBottom: "0.5px solid rgba(180,150,90,0.12)" }}>
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[11px] tracking-[0.35em] uppercase mb-8" style={{ color: "var(--gold)" }}>
+            O custo invisível de deixar parado
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl font-light leading-tight mb-8" style={{ fontFamily: "Cormorant Garamond, serif" }}>
+            Patrimônio parado não é patrimônio seguro. É patrimônio que perde — em silêncio, todos os meses.
+          </h2>
+          <p className="text-[15px] text-foreground/55 leading-relaxed mb-5">
+            Capital imobilizado em ativos que só valorizam no papel, ou dinheiro guardado "por segurança", carrega um custo de oportunidade que não aparece no extrato: tudo o que ele poderia ter gerado e não gerou. Ano após ano, essa diferença compõe contra você.
+          </p>
+          <p className="text-[15px] text-foreground/55 leading-relaxed">
+            A alavancagem patrimonial inverte essa lógica. Em vez de imobilizar, você usa o crédito de forma estruturada e regulamentada para multiplicar capacidade de investimento — mantendo seus ativos, com custo abaixo da inflação. É o que separa quem administra patrimônio de quem o faz crescer.
+          </p>
         </div>
       </section>
 

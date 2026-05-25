@@ -12,6 +12,7 @@ import ArtigoPatrimonio from "./pages/ArtigoPatrimonio";
 import Contato from "./pages/Contato";
 import Calculadora from "./pages/Calculadora";
 import Landing from "./pages/Landing";
+import LpCalculadora from "./pages/LpCalculadora";
 
 function NotFound() {
   return (
@@ -43,7 +44,8 @@ export default function App() {
         <Route path="/blog/patrimonio-parado" element={<ArtigoPatrimonio />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/calculadora" element={<Calculadora />} />
-        <Route path="/alavancagem" element={<Landing />} />
+        <Route path="/lp-alavancagem" element={<Landing />} />
+        <Route path="/lp-calculadora" element={<LpCalculadora />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
