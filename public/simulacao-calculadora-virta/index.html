@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Independência Financeira — Virta Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --background: #111110;
+    --background-soft: #0e0e0d;
+    --background-softer: #0a0a09;
+    --surface: rgb(17,17,16);
+    --foreground: #e8e0d0;
+    --foreground-soft: rgba(232,224,208,0.55);
+    --foreground-softer: rgba(232,224,208,0.4);
+    --gold: #9b7e4e;
+    --gold-light: #b8974a;
+    --gold-accent: #b4965a;
+    --gold-border: rgba(180,150,90,0.15);
+    --gold-border-strong: rgba(180,150,90,0.4);
+    --gold-bg: rgba(180,150,90,0.04);
+    --gold-bg-hover: rgba(180,150,90,0.08);
+    --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding: 80px 24px 100px;
+  }
+
+  .wrapper { width: 100%; max-width: 880px; margin: 0 auto; }
+
+  .gold-line { width: 60px; height: 0.5px; background: var(--gold); margin-bottom: 32px; }
+  .gold-line.center { margin-left: auto; margin-right: auto; }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+
+  .header { margin-bottom: 64px; }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(36px, 6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+    margin-bottom: 28px;
+    max-width: 720px;
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--foreground-soft);
+    line-height: 1.7;
+    max-width: 480px;
+    font-weight: 300;
+  }
+
+  .section-num {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .input-card {
+    background: transparent;
+    border: 0.5px solid var(--gold-border);
+    padding: 48px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  @media (max-width: 640px) { .input-card { padding: 32px 24px; } }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 32px;
+  }
+  @media (max-width: 640px) { .fields-grid { grid-template-columns: 1fr; gap: 24px; } }
+
+  .field { display: flex; flex-direction: column; gap: 12px; }
+  .field-full { grid-column: 1 / -1; }
+
+  .field label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foreground-soft);
+    font-weight: 400;
+  }
+
+  .input-wrap { position: relative; display: flex; align-items: center; }
+  .input-prefix, .input-suffix {
+    position: absolute;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--foreground-softer);
+    pointer-events: none;
+    font-weight: 300;
+  }
+  .input-prefix { left: 0; }
+  .input-suffix { right: 0; }
+
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--gold-border);
+    color: var(--foreground);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 28px;
+    padding: 8px 0 12px 0;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input.has-prefix { padding-left: 32px; }
+  .field input.has-suffix { padding-right: 48px; }
+  .field input:focus { border-bottom-color: var(--gold); }
+  .field input::placeholder { color: var(--foreground-softer); }
+  .field input::-webkit-outer-spin-button,
+  .field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .field input[type=number] { -moz-appearance: textfield; }
+
+  .calc-display {
+    border: 0.5px solid var(--gold-border-strong);
+    padding: 28px 32px;
+    margin-top: 8px;
+    background: var(--gold-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cd-formula { display: flex; align-items: center; gap: 20px; }
+  .cd-part { display: flex; flex-direction: column; gap: 4px; }
+  .cd-val {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--foreground);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .cd-lbl {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foreground-softer);
+  }
+  .cd-op {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold);
+    font-weight: 300;
+  }
+  .cd-result {
+    text-align: right;
+    border-left: 0.5px solid var(--gold-border-strong);
+    padding-left: 24px;
+  }
+  .cd-result .cd-val { font-size: 38px; color: var(--gold); }
+  @media (max-width: 640px) {
+    .calc-display { flex-direction: column; align-items: stretch; }
+    .cd-result { border-left: none; border-top: 0.5px solid var(--gold-border-strong); padding-left: 0; padding-top: 20px; text-align: center; }
+  }
+
+  .info-note {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--foreground-softer);
+    margin-top: 28px;
+    line-height: 1.7;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-wrap { margin-top: 40px; text-align: center; }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 48px;
+    background: var(--gold);
+    border: none;
+    color: var(--background);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .cta:hover { background: var(--gold-light); }
+
+  .results {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+    margin-top: 64px;
+  }
+  .results.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .hero-result {
+    border: 0.5px solid var(--gold-border);
+    padding: 56px 48px;
+    margin-bottom: 28px;
+    text-align: center;
+    background: var(--gold-bg);
+  }
+  @media (max-width: 640px) { .hero-result { padding: 40px 24px; } }
+  .hero-result .hr-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .hero-result .hr-val {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 300;
+    color: var(--foreground);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .hero-result .hr-desc {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-style: italic;
+    color: var(--foreground-soft);
+    line-height: 1.5;
+    max-width: 580px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--gold-border);
+    border: 0.5px solid var(--gold-border);
+    margin-bottom: 28px;
+  }
+  @media (max-width: 640px) { .metric-grid { grid-template-columns: 1fr; } }
+
+  .metric { background: var(--background); padding: 36px 32px; }
+  .metric .m-lbl {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foreground-soft);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .metric .m-val {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--foreground);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .metric.highlight .m-val { color: var(--gold); }
+  .metric .m-sub {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--foreground-soft);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .erosion {
+    border: 0.5px solid var(--gold-border);
+    padding: 36px 40px;
+    margin-bottom: 28px;
+  }
+  .erosion .e-title {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foreground-soft);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+  .e-bar-track {
+    height: 1px;
+    background: var(--gold-border);
+    margin-bottom: 16px;
+    overflow: visible;
+    position: relative;
+  }
+  .e-bar-fill {
+    height: 1px;
+    background: var(--gold);
+    transition: width 1s cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+  }
+  .e-bar-fill::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    width: 7px;
+    height: 7px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .e-tl-label {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--foreground-softer);
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+  .e-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--foreground-soft);
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  .e-labels strong { color: var(--gold); font-weight: 400; }
+
+  .timeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    padding-top: 8px;
+    overflow-x: auto;
+  }
+  .tl-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    min-width: 80px;
+  }
+  .tl-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
+  .tl-line {
+    flex: 1;
+    min-width: 30px;
+    height: 0.5px;
+    background: var(--gold-border-strong);
+    margin-top: 2px;
+  }
+  .tl-node .tl-val {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--foreground);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .tl-node .tl-sub {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--foreground-softer);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .final-cta {
+    margin-top: 56px;
+    padding: 64px 40px;
+    text-align: center;
+    background: var(--background-soft);
+    border: 0.5px solid var(--gold-border);
+  }
+  .final-cta::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 0.5px;
+    background: var(--gold);
+    margin: 0 auto 32px;
+  }
+  .final-cta h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.15;
+    color: var(--foreground);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .final-cta h3 em { font-style: italic; color: var(--gold); }
+  .final-cta p {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--foreground-soft);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 300;
+  }
+  .final-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 40px;
+    background: var(--gold);
+    color: var(--background);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .final-cta-btn:hover { background: var(--gold-light); }
+
+  .footnote {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 0.5px solid var(--gold-border);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--foreground-softer);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header class="header">
+    <div class="gold-line"></div>
+    <p class="eyebrow">Independência Financeira</p>
+    <h1>Quanto você vai realmente <em>precisar</em> para se aposentar</h1>
+    <p class="header-sub">
+      A inflação corrói silenciosamente o seu poder de compra ao longo dos anos.
+      Descubra o número real que separa você da liberdade financeira.
+    </p>
+  </header>
+
+  <p class="section-num">01 — Defina seu objetivo</p>
+
+  <div class="input-card">
+
+    <div class="fields-grid">
+
+      <div class="field">
+        <label>Renda passiva desejada na aposentadoria</label>
+        <div class="input-wrap">
+          <span class="input-prefix">R$</span>
+          <input type="number" id="renda" class="has-prefix" value="10000" min="1000" step="500">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Prazo até a aposentadoria</label>
+        <div class="input-wrap">
+          <input type="number" id="prazo" class="has-suffix" value="15" min="1" max="50" step="1">
+          <span class="input-suffix">anos</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Rentabilidade mensal sobre patrimônio acumulado</label>
+        <div class="input-wrap">
+          <input type="number" id="retirada" class="has-suffix" value="1" min="0.1" max="5" step="0.1">
+          <span class="input-suffix">% a.m.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Selic média histórica (15 anos)</label>
+        <div class="input-wrap">
+          <input type="number" id="selic" class="has-suffix" value="9.2" min="1" max="30" step="0.1" oninput="atualizarReal()">
+          <span class="input-suffix">% a.a.</span>
+        </div>
+      </div>
+
+      <div class="field field-full">
+        <label>IPCA médio histórico (15 anos)</label>
+        <div class="input-wrap">
+          <input type="number" id="ipca" class="has-suffix" value="5.8" min="1" max="20" step="0.1" oninput="atualizarReal()">
+          <span class="input-suffix">% a.a.</span>
+        </div>
+      </div>
+
+      <div class="field field-full">
+        <label>Rentabilidade real (calculada automaticamente)</label>
+        <div class="calc-display">
+          <div class="cd-formula">
+            <div class="cd-part">
+              <span class="cd-val" id="d-selic">9,2%</span>
+              <span class="cd-lbl">Selic</span>
+            </div>
+            <span class="cd-op">÷</span>
+            <div class="cd-part">
+              <span class="cd-val" id="d-ipca">5,8%</span>
+              <span class="cd-lbl">IPCA</span>
+            </div>
+            <span class="cd-op">=</span>
+          </div>
+          <div class="cd-result">
+            <div class="cd-val" id="d-real">3,21%</div>
+            <div class="cd-lbl">a.a. acima da inflação</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="info-note">
+      Valores pré-preenchidos com médias dos últimos 15 anos (2010–2024). A rentabilidade real é calculada pela fórmula de Fisher: [(1 + Selic) / (1 + IPCA)] − 1.
+    </p>
+
+  </div>
+
+  <div class="cta-wrap">
+    <button class="cta" onclick="calcular()">Calcular meu número real</button>
+  </div>
+
+  <div class="results" id="results">
+
+    <p class="section-num" style="margin-top:24px">02 — Seu número real</p>
+
+    <div class="hero-result">
+      <p class="hr-eyebrow">Renda nominal necessária na aposentadoria</p>
+      <div class="hr-val" id="r-renda-fut">—</div>
+      <p class="hr-desc" id="r-renda-desc">—</p>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric highlight">
+        <div class="m-lbl">Patrimônio alvo</div>
+        <div class="m-val" id="r-patrimonio">—</div>
+        <div class="m-sub" id="r-pat-sub">necessário para gerar sua renda com segurança</div>
+      </div>
+      <div class="metric">
+        <div class="m-lbl">Aporte mensal necessário</div>
+        <div class="m-val" id="r-aporte">—</div>
+        <div class="m-sub">partindo do zero, para atingir o patrimônio alvo</div>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="m-lbl">Fator de correção inflacionária</div>
+        <div class="m-val" id="r-fator">—</div>
+        <div class="m-sub">os preços serão <span id="r-fator-sub">—</span> vezes mais altos no futuro — R$ 1 de hoje vai custar R$ <span id="r-fator-reais">—</span></div>
+      </div>
+      <div class="metric">
+        <div class="m-lbl">Poder de compra perdido</div>
+        <div class="m-val" id="r-perda">—</div>
+        <div class="m-sub" id="r-perda-sub">do seu dinheiro some em valor real se você não corrigir pela inflação</div>
+      </div>
+    </div>
+
+    <div class="erosion">
+      <div class="e-title">Quanto você precisará sacar por mês para manter seu poder de compra</div>
+      <div class="e-bar-track">
+        <div class="e-bar-fill" id="bar-fill" style="width:0%"></div>
+      </div>
+      <div class="e-labels">
+        <span id="bl-now">—</span>
+        <strong id="bl-fut">—</strong>
+      </div>
+      <div class="e-tl-label">Renda mensal equivalente ao longo do tempo, corrigida pela inflação</div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="final-cta">
+      <h3>Pronto para construir seu patrimônio com <em>estratégia?</em></h3>
+      <p>
+        A Virta Capital estrutura consórcios de investimento para quem quer
+        chegar lá de verdade — usando alavancagem patrimonial inteligente.
+      </p>
+      <a href="https://virtacapital.com.br/contato" class="final-cta-btn">Conversar</a>
+    </div>
+
+    <div class="footnote">
+      Cálculos baseados em projeções e não constituem garantia de rendimento futuro. Selic 9,2% a.a. e IPCA 5,8% a.a. são médias dos últimos 15 anos no Brasil (2010–2024). Rentabilidade real calculada pela fórmula de Fisher: [(1 + Selic) / (1 + IPCA)] − 1. Patrimônio alvo calculado como renda mensal dividida pela taxa de retirada. Aporte mensal calculado com juros compostos partindo do zero, usando a taxa Selic.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function fmt(v) {
+  return v.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+function fmtR(v) { return 'R$ ' + fmt(v); }
+
+function atualizarReal() {
+  const selic = parseFloat(document.getElementById('selic').value) || 0;
+  const ipca = parseFloat(document.getElementById('ipca').value) || 0;
+  const real = ((1 + selic/100) / (1 + ipca/100) - 1) * 100;
+  document.getElementById('d-selic').textContent = selic.toString().replace('.', ',') + '%';
+  document.getElementById('d-ipca').textContent = ipca.toString().replace('.', ',') + '%';
+  document.getElementById('d-real').textContent = real.toFixed(2).replace('.', ',') + '%';
+}
+
+function animateNum(el, target, prefix) {
+  const start = 0;
+  const duration = 1000;
+  const startTime = performance.now();
+  function step(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const val = start + (target - start) * ease;
+    el.textContent = prefix + fmt(val);
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function calcular() {
+  const rendaHoje = parseFloat(document.getElementById('renda').value) || 0;
+  const retiradaMensalPct = parseFloat(document.getElementById('retirada').value) || 1;
+  const prazo = parseInt(document.getElementById('prazo').value) || 15;
+  const selicAnual = parseFloat(document.getElementById('selic').value) || 9.2;
+  const ipcaAnual = parseFloat(document.getElementById('ipca').value) || 5.8;
+
+  // Input = renda desejada em poder de compra atual
+  // Output = quanto precisará receber nominalmente no futuro para ter esse mesmo poder de compra
+  const fatorInflacao = Math.pow(1 + ipcaAnual / 100, prazo);
+  const rendaFuturaNecessaria = rendaHoje * fatorInflacao;
+  const patrimonioAlvo = rendaFuturaNecessaria / (retiradaMensalPct / 100);
+
+  const rMes = Math.pow(1 + selicAnual / 100, 1/12) - 1;
+  const n = prazo * 12;
+  const aporteMes = rMes > 0
+    ? patrimonioAlvo * rMes / (Math.pow(1 + rMes, n) - 1)
+    : patrimonioAlvo / n;
+
+  const perdaPoder = (1 - 1 / fatorInflacao) * 100;
+
+  const results = document.getElementById('results');
+  results.classList.add('visible');
+
+  document.getElementById('r-renda-desc').textContent =
+    'Para ter o poder de compra de ' + fmtR(rendaHoje) + '/mês hoje, ' +
+    'em ' + prazo + ' anos você precisará receber ' + fmtR(Math.round(rendaFuturaNecessaria)) + '/mês nominalmente.';
+
+  animateNum(document.getElementById('r-renda-fut'), rendaFuturaNecessaria, 'R$ ');
+  animateNum(document.getElementById('r-patrimonio'), patrimonioAlvo, 'R$ ');
+  animateNum(document.getElementById('r-aporte'), aporteMes, 'R$ ');
+  document.getElementById('r-fator').textContent = fatorInflacao.toFixed(2).replace('.', ',') + '×';
+  document.getElementById('r-fator-sub').textContent = fatorInflacao.toFixed(2).replace('.', ',');
+  document.getElementById('r-fator-reais').textContent = fatorInflacao.toFixed(2).replace('.', ',');
+  document.getElementById('r-perda').textContent = perdaPoder.toFixed(1).replace('.', ',') + '%';
+  document.getElementById('r-perda-sub').textContent = perdaPoder.toFixed(1).replace('.', ',') + '% do seu dinheiro some em valor real se você não corrigir pela inflação';
+  document.getElementById('r-pat-sub').textContent =
+    'com rentabilidade de ' + retiradaMensalPct.toString().replace('.', ',') + '% ao mês sobre o patrimônio acumulado';
+
+  const barPct = Math.min((1 / fatorInflacao) * 100, 100);
+  document.getElementById('bar-fill').style.width = barPct.toFixed(1) + '%';
+  document.getElementById('bl-now').textContent = 'Hoje: ' + fmtR(rendaHoje) + '/mês (poder de compra desejado)';
+  document.getElementById('bl-fut').textContent = 'Em ' + prazo + ' anos: precisa sacar ' + fmtR(Math.round(rendaFuturaNecessaria)) + '/mês';
+
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = '';
+  const steps = Math.min(prazo, 5);
+  const interval = Math.max(1, Math.floor(prazo / steps));
+  const points = [];
+  for (let i = 0; i <= steps; i++) {
+    const a = i * interval;
+    if (a <= prazo) points.push(a);
+  }
+  if (points[points.length - 1] !== prazo) points.push(prazo);
+
+  points.forEach((a, i) => {
+    const node = document.createElement('div');
+    node.className = 'tl-node';
+    const r = rendaHoje * Math.pow(1 + ipcaAnual / 100, a);
+    node.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-val">R$ ${fmt(Math.round(r))}</div>
+      <div class="tl-sub">ano ${a}</div>
+    `;
+    tl.appendChild(node);
+    if (i < points.length - 1) {
+      const line = document.createElement('div');
+      line.className = 'tl-line';
+      tl.appendChild(line);
+    }
+  });
+
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+atualizarReal();
+calcular();
+</script>
+</body>
+</html>
