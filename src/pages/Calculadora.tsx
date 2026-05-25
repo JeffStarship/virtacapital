@@ -297,14 +297,28 @@ export default function Calculadora() {
   usePageMeta("Calculadora de Renda Passiva — Virta Capital", "Descubra o número real que separa você da liberdade financeira.");
 
   const location = useLocation();
-  const prefill = (location.state || {}) as { unlocked?: boolean; email?: string };
+  const stateData = (location.state || {}) as { unlocked?: boolean; email?: string };
+  const queryParams = new URLSearchParams(location.search);
+  const queryEmail = queryParams.get("lead") || "";
+  // Camadas de persistência: query string (sobrevive a reload) > state > sessionStorage
+  let storedEmail = "";
+  try { storedEmail = sessionStorage.getItem("virta_lead_email") || ""; } catch (_) {}
+  const initialEmail = queryEmail || stateData.email || storedEmail || "";
+  const initialUnlocked = !!queryEmail || !!stateData.unlocked || !!storedEmail;
 
-  const [unlocked, setUnlocked] = useState(!!prefill.unlocked);
+  const [unlocked, setUnlocked] = useState(initialUnlocked);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [whatsapp, setWhatsapp] = useState("");
-  const [leadEmail, setLeadEmail] = useState(prefill.email || "");
+  const [leadEmail, setLeadEmail] = useState(initialEmail);
   const calcRef = useRef<HTMLDivElement>(null);
+
+  // Persiste o email assim que disponível (cobre reload e navegação dentro da aba)
+  useEffect(() => {
+    if (initialEmail) {
+      try { sessionStorage.setItem("virta_lead_email", initialEmail); } catch (_) {}
+    }
+  }, [initialEmail]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -322,6 +336,7 @@ export default function Calculadora() {
     setErrors({});
     setLoading(true);
     setLeadEmail(data.email);
+    try { sessionStorage.setItem("virta_lead_email", data.email); } catch (_) {}
     try {
       await fetch(WEBHOOK_URL, {
         method: "POST",

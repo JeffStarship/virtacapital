@@ -65,8 +65,11 @@ export default function LpCalculadora() {
       });
     } catch (_) {}
     setLoading(false);
-    // Redireciona para a calculadora já desbloqueada, levando o email
-    navigate("/calculadora", { state: { unlocked: true, email: data.email } });
+    // Redireciona para a calculadora já desbloqueada.
+    // Email vai na query string (sobrevive a reload) + no state (fallback).
+    navigate(`/calculadora?lead=${encodeURIComponent(data.email)}`, {
+      state: { unlocked: true, email: data.email },
+    });
   };
 
   const gold = "var(--gold)";
